@@ -10,7 +10,7 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.2)',
   },
   heading: {
-    fontFamily: 'roboto-black',
+    fontFamily: 'Roboto-Black',
     color: '#FFF',
     fontSize: 36,
     marginTop: 50,
@@ -26,7 +26,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     width: '80%',
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
   },
   signupButton: {
     backgroundColor: '#FFCD61',
@@ -37,7 +37,7 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   signupText: {
-    fontFamily: 'nunito-black',
+    fontFamily: 'Nunito-Black',
     fontSize: 18,
   },
   alreadyHave: {
@@ -45,11 +45,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   alreadyText: {
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
     color: '#FFF',
   },
   loginText: {
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
     color: '#FFF',
     textDecorationLine: 'underline',
     fontWeight: 'bold',

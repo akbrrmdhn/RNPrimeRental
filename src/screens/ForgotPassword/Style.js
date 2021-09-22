@@ -10,7 +10,7 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.2)',
   },
   heading: {
-    fontFamily: 'roboto-black',
+    fontFamily: 'Roboto-Black',
     color: '#FFF',
     fontSize: 36,
     marginTop: 100,
@@ -22,7 +22,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   enterEmailText: {
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
     color: '#FFF',
   },
   textInput: {
@@ -30,7 +30,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     width: '80%',
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
   },
   sendButton: {
     marginVertical: 20,
@@ -42,7 +42,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   sendText: {
-    fontFamily: 'nunito-black',
+    fontFamily: 'Nunito-Black',
     fontSize: 18,
   },
   resendButton: {

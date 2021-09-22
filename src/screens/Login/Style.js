@@ -10,7 +10,7 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(52, 52, 52, 0.2)',
   },
   heading: {
-    fontFamily: 'roboto-black',
+    fontFamily: 'Roboto-Black',
     color: '#fff',
     fontSize: 36,
     marginBottom: 75,
@@ -25,7 +25,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     width: '80%',
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
   },
   forgotPassword: {
     color: '#FFF',
@@ -46,21 +46,21 @@ export default StyleSheet.create({
   },
   loginText: {
     textAlign: 'center',
-    fontFamily: 'nunito-black',
+    fontFamily: 'Nunito-Black',
     fontSize: 18,
   },
   dontHave: {
     flexDirection: 'row',
   },
   dontHaveText: {
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
     color: '#FFF',
     fontSize: 14,
   },
   signupText: {
     color: '#fff',
     fontSize: 14,
-    fontFamily: 'nunito-regular',
+    fontFamily: 'Nunito-Regular',
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
