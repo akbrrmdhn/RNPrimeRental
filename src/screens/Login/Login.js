@@ -26,7 +26,7 @@ export class Login extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={Style.loginButton}
-              onPress={() => this.props.navigation.navigate('Home')}>
+              onPress={() => this.props.navigation.navigate('BottomTabs')}>
               <Text style={Style.loginText}>Login</Text>
             </TouchableOpacity>
             <View style={Style.dontHave}>

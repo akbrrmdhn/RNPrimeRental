@@ -8,9 +8,9 @@ import {Profile} from '../screens/Profile/Profile';
 
 const Tab = createBottomTabNavigator();
 
-const Tabs = () => {
+const BottomTabs = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName="Home">
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="History" component={History} />
       <Tab.Screen name="Chat" component={Chat} />
@@ -19,4 +19,4 @@ const Tabs = () => {
   );
 };
 
-export default Tabs;
+export default BottomTabs;
