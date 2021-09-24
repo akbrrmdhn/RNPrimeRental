@@ -18,6 +18,7 @@ export default StyleSheet.create({
   },
   chatList: {
     margin: 20,
+    paddingBottom: 50,
   },
   chatMessage: {
     margin: 10,

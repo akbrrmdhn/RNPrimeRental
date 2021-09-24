@@ -19,12 +19,18 @@ export class Profile extends Component {
             <Text>Help</Text>
             <Text>{'>'}</Text>
           </View>
-          <View style={Style.menu}>
-            <Text>Update Profile</Text>
-            <Text>{'>'}</Text>
+          <View>
+            <TouchableOpacity
+              style={Style.pressUpdate}
+              onPressOut={() => this.props.navigation.push('UpdateProfile')}>
+              <Text>Update Profile</Text>
+              <Text>{'>'}</Text>
+            </TouchableOpacity>
           </View>
           <View style={Style.logout}>
-            <TouchableOpacity style={Style.logoutButton}>
+            <TouchableOpacity
+              style={Style.logoutButton}
+              onPress={() => this.props.navigation.navigate('Login')}>
               <Text style={Style.logoutText}>Log Out</Text>
             </TouchableOpacity>
           </View>

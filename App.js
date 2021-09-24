@@ -7,6 +7,7 @@ import Login from './src/screens/Login/Login';
 import Signup from './src/screens/Signup/Signup';
 import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
 import BottomTabs from './src/components/BottomTabs';
+import UpdateProfile from './src/screens/UpdateProfile/UpdateProfile';
 
 const App = () => {
   const {Navigator: StackNav, Screen: StackScreen} = createStackNavigator();
@@ -30,9 +31,9 @@ const App = () => {
           name="ForgotPassword">
           {props => <ForgotPassword {...props} />}
         </StackScreen>
-        {/* <StackScreen name="BottomTabs">
-          {props => <BottomTabs {...props} />}
-        </StackScreen> */}
+        <StackScreen options={{headerShown: true}} name="UpdateProfile">
+          {props => <UpdateProfile {...props} />}
+        </StackScreen>
       </StackNav>
     </NavigationContainer>
   );

@@ -12,6 +12,10 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 10,
   },
+  pressUpdate: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   logout: {
     alignItems: 'center',
     justifyContent: 'center',

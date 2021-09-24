@@ -6,8 +6,9 @@ import {Home} from '../screens/Home/Home';
 import {History} from '../screens/History/History';
 import {Chat} from '../screens/Chat/Chat';
 import {Profile} from '../screens/Profile/Profile';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+// import ProfileStack from './ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,7 +53,6 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         options={{
-          headerShown: true,
           tabBarIcon: ({focused}) => (
             <View>
               <IoniconsIcon name="person-sharp" size={20} color="#000" />
@@ -62,6 +62,7 @@ const BottomTabs = () => {
         name="Profile"
         component={Profile}
       />
+      {/* <Tab.Screen name="ProfileStack" component={ProfileStack} /> */}
     </Tab.Navigator>
   );
 };
