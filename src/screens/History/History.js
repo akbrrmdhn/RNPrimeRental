@@ -35,7 +35,7 @@ export class History extends Component {
         </View>
         <View style={Style.historyContent}>
           <View>
-            <Text>A week ago</Text>
+            <Text style={Style.cardHeading}>A week ago</Text>
             <FlatList
               data={this.histories}
               renderItem={({item}) => (
@@ -46,10 +46,12 @@ export class History extends Component {
                     style={Style.cardImage}
                   />
                   <View>
-                    <Text>{item.name}</Text>
-                    <Text>{item.date}</Text>
-                    <Text>Prepayment: Rp{item.price}</Text>
-                    <Text>{item.status}</Text>
+                    <Text style={Style.itemName}>{item.name}</Text>
+                    <Text style={Style.itemDate}>{item.date}</Text>
+                    <Text style={Style.itemPrice}>
+                      Prepayment: Rp{item.price}
+                    </Text>
+                    <Text style={Style.itemStatus}>{item.status}</Text>
                   </View>
                   <View style={Style.checkBox}>
                     <Text>a</Text>
@@ -59,7 +61,7 @@ export class History extends Component {
             />
           </View>
           <View>
-            <Text>Select</Text>
+            <Text style={Style.cardHeading}>Select</Text>
           </View>
         </View>
       </View>

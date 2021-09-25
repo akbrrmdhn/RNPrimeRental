@@ -3,22 +3,24 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFF',
+  },
+  scrollView: {
+    margin: 10,
   },
   profileAvatar: {
-    borderRadius: 70,
-    width: 100,
-    height: 100,
+    borderRadius: 50,
+    width: '25%',
+    height: '70%',
   },
   profileImageSet: {
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    flex: 1,
-    marginBottom: -100,
+    height: '20%',
   },
   imageButtons: {
     justifyContent: 'space-evenly',
-    height: '50%',
   },
   takeButton: {
     backgroundColor: '#393939',
@@ -47,14 +49,17 @@ export default StyleSheet.create({
     fontSize: 13,
   },
   updateContent: {
-    margin: 20,
-    flex: 1,
-    paddingBottom: '80%',
+    marginHorizontal: 20,
+    paddingBottom: '45%',
   },
   genders: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginBottom: 10,
+  },
+  genderText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 13,
   },
   radioStyle: {
     flexDirection: 'row',
@@ -69,12 +74,13 @@ export default StyleSheet.create({
     borderBottomColor: '#393939',
     borderBottomWidth: 1,
     marginBottom: 10,
+    fontFamily: 'Nunito-Regular',
   },
   submitButton: {
     backgroundColor: '#FFCD61',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '25%',
+    height: '15%',
     borderRadius: 10,
   },
   submitText: {

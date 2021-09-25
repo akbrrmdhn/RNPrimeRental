@@ -8,6 +8,8 @@ import Signup from './src/screens/Signup/Signup';
 import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
 import BottomTabs from './src/components/BottomTabs';
 import UpdateProfile from './src/screens/UpdateProfile/UpdateProfile';
+import Order from './src/screens/Order/Order';
+import Payment from './src/screens/Payment/Payment';
 
 const App = () => {
   const {Navigator: StackNav, Screen: StackScreen} = createStackNavigator();
@@ -33,6 +35,14 @@ const App = () => {
         </StackScreen>
         <StackScreen options={{headerShown: true}} name="UpdateProfile">
           {props => <UpdateProfile {...props} />}
+        </StackScreen>
+        <StackScreen
+          options={{headerShown: true, headerTransparent: true}}
+          name="Order">
+          {props => <Order {...props} />}
+        </StackScreen>
+        <StackScreen options={{headerShown: true}} name="Payment">
+          {props => <Payment {...props} />}
         </StackScreen>
       </StackNav>
     </NavigationContainer>

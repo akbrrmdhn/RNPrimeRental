@@ -17,6 +17,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     margin: 20,
   },
+  cardHeading: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 14,
+    color: '#C4C4C4',
+  },
   historyCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -26,6 +31,25 @@ export default StyleSheet.create({
     width: '40%',
     height: '100%',
     borderRadius: 10,
+  },
+  itemName: {
+    fontFamily: 'Nunito-Regular',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  itemDate: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+  },
+  itemPrice: {
+    fontFamily: 'Nunito-Regular',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  itemStatus: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 12,
+    color: 'green',
   },
   checkBox: {
     justifyContent: 'center',

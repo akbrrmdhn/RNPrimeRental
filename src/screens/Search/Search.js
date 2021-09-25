@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 
-export class Payment extends Component {
+export class Search extends Component {
   render() {
     return (
       <View>
-        <Text> Payment1 </Text>
+        <Text> Search </Text>
       </View>
     );
   }
 }
 
-export default Payment;
+export default Search;

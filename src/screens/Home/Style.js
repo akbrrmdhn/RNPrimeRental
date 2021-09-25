@@ -3,71 +3,77 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFF',
   },
   image: {
-    position: 'absolute',
     flex: 1,
     backgroundColor: 'rgba(52, 52, 52, 0.2)',
-    width: '100%',
-    top: 0,
-    bottom: '60%',
-  },
-  content: {
-    justifyContent: 'space-evenly',
+    height: 200,
+    zIndex: 0,
+    // marginTop: 20,
   },
   vehicleFinder: {
     backgroundColor: '#393939',
-    top: '70%',
+    marginTop: '-5%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
+    height: '100%',
   },
-  finderFirstRow: {
-    flexDirection: 'row',
-    margin: 10,
-    justifyContent: 'space-evenly',
-  },
-  finderSecondRow: {
-    flexDirection: 'row',
+  finderRow: {
     marginHorizontal: 10,
-    marginBottom: 30,
+    marginBottom: 10,
+    flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
-  locationTextInput: {
+  textInput: {
     marginTop: 20,
     borderRadius: 10,
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     width: '50%',
     fontFamily: 'Nunito-Regular',
   },
-  typeTextInput: {
+  picker: {
     marginTop: 20,
     borderRadius: 10,
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
-    width: '30%',
+    width: '40%',
     fontFamily: 'Nunito-Regular',
   },
-  finderArea: {
-    marginHorizontal: 10,
-    alignItems: 'center',
-  },
-  finderButton: {
+  findButton: {
     backgroundColor: '#FFCD61',
-    width: '80%',
-    height: '45%',
-    alignItems: 'center',
+    marginHorizontal: 20,
+    marginTop: 10,
+    marginBottom: 40,
     justifyContent: 'center',
+    alignItems: 'center',
+    height: '30%',
     borderRadius: 10,
   },
-  finderText: {
+  buttonText: {
     fontFamily: 'Nunito-Black',
     fontSize: 18,
   },
   recommended: {
-    top: 200,
+    // marginTop: -50,
   },
   recommendedHeading: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 20,
+    alignItems: 'center',
+    margin: 10,
+  },
+  cardImage: {
+    width: 250,
+    height: 150,
+    margin: 10,
+    borderRadius: 10,
+  },
+  recommendedTitle: {
+    fontFamily: 'Nunito-Black',
+    fontSize: 18,
+  },
+  viewMore: {
+    fontFamily: 'Nunito-Black',
+    fontSize: 12,
   },
 });
