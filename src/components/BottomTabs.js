@@ -21,7 +21,11 @@ const BottomTabs = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <View>
-              <Icon name="home" size={20} color="#000" />
+              <Icon
+                name="home"
+                size={20}
+                color={focused ? '#FFCD61' : '#DFDEDE'}
+              />
             </View>
           ),
         }}
@@ -32,7 +36,11 @@ const BottomTabs = () => {
         options={{
           tabBarIcon: ({focused}) => (
             <View>
-              <IoniconsIcon name="newspaper" size={20} color="#000" />
+              <IoniconsIcon
+                name="newspaper"
+                size={20}
+                color={focused ? '#FFCD61' : '#DFDEDE'}
+              />
             </View>
           ),
         }}
@@ -44,7 +52,11 @@ const BottomTabs = () => {
           headerShown: true,
           tabBarIcon: ({focused}) => (
             <View>
-              <IoniconsIcon name="chatbubble" size={20} color="#000" />
+              <IoniconsIcon
+                name="chatbubble"
+                size={20}
+                color={focused ? '#FFCD61' : '#DFDEDE'}
+              />
             </View>
           ),
         }}
@@ -53,9 +65,15 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         options={{
+          headerShown: true,
+          title: 'Profile',
           tabBarIcon: ({focused}) => (
             <View>
-              <IoniconsIcon name="person-sharp" size={20} color="#000" />
+              <IoniconsIcon
+                name="person-sharp"
+                size={20}
+                color={focused ? '#FFCD61' : '#DFDEDE'}
+              />
             </View>
           ),
         }}

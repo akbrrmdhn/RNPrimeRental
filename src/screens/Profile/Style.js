@@ -12,6 +12,13 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 10,
   },
+  menuItem: {
+    marginVertical: 10,
+  },
+  menuText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 18,
+  },
   pressUpdate: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -21,7 +28,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   logoutButton: {
-    marginTop: '90%',
+    marginTop: '80%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFCD61',

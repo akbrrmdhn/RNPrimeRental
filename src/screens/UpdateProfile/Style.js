@@ -6,12 +6,12 @@ export default StyleSheet.create({
     backgroundColor: '#FFF',
   },
   scrollView: {
-    margin: 10,
+    marginHorizontal: 10,
   },
   profileAvatar: {
     borderRadius: 50,
-    width: '25%',
-    height: '70%',
+    width: '30%',
+    height: '80%',
   },
   profileImageSet: {
     marginTop: 10,
