@@ -24,9 +24,10 @@ export default StyleSheet.create({
   textInput: {
     marginBottom: 20,
     borderRadius: 10,
-    backgroundColor: 'rgba(250, 250, 250, 0.4)',
+    backgroundColor: 'rgba(250, 250, 250, 0.6)',
     width: '80%',
     fontFamily: 'Nunito-Regular',
+    color: '#000',
   },
   signupButton: {
     backgroundColor: '#FFCD61',

@@ -5,6 +5,10 @@ import LoginBackground from '../../assets/images/Login.jpg';
 import {TextInput} from 'react-native-gesture-handler';
 
 export class Login extends Component {
+  state = {
+    email: '',
+    password: '',
+  };
   render() {
     return (
       <View style={Style.container}>
@@ -14,11 +18,20 @@ export class Login extends Component {
           style={Style.image}>
           <Text style={Style.heading}> LET'S EXPLORE{'\n'} THE WORLD </Text>
           <View style={Style.content}>
-            <TextInput placeholder="Email" style={Style.textInput} />
+            <TextInput
+              placeholder="Email"
+              style={Style.textInput}
+              onChangeText={text => this.setState({email: text})}
+            />
             <TextInput
               secureTextEntry={true}
               placeholder="Password"
               style={Style.textInput}
+              onChangeText={text =>
+                this.setState({
+                  password: text,
+                })
+              }
             />
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('ForgotPassword')}>

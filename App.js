@@ -12,14 +12,20 @@ import Order from './src/screens/Order/Order';
 import Payment from './src/screens/Payment/Payment';
 import Payment2 from './src/screens/Payment/Payment2';
 import Payment3 from './src/screens/Payment/Payment3';
+import SplashScreen from './src/screens/SplashScreen/SplashScreen';
 
 const App = () => {
   const {Navigator: StackNav, Screen: StackScreen} = createStackNavigator();
   return (
     <NavigationContainer>
       <StackNav
-        initialRouteName="Login"
+        initialRouteName="SplashScreen"
         screenOptions={{headerTintColor: '#FFF'}}>
+        <StackScreen
+          name="SplashScreen"
+          options={{headerShown: false}}
+          component={SplashScreen}
+        />
         <StackScreen name="Profile">
           {props => <Profile {...props} />}
         </StackScreen>

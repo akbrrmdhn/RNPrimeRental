@@ -51,7 +51,10 @@ export class Payment2 extends Component {
                   color="#DFDEDE"
                   onPress={() => this.setModalState(false)}
                 />
-                <Text>a</Text>
+                <Text>ID: 9087627392624</Text>
+                <Text>Name: Jessica Jane (jjane@mail.com)</Text>
+                <Text>0890876789 (active)</Text>
+                <Text>Jakarta, Indonesia</Text>
               </View>
             </Modal>
             <View style={Style.buttonPosition}>

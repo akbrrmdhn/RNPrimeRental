@@ -3,7 +3,6 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
   },
   image: {
     flex: 1,
@@ -17,32 +16,35 @@ export default StyleSheet.create({
     marginTop: '-5%',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: '100%',
+    height: 220,
   },
   finderRow: {
     marginHorizontal: 10,
-    marginBottom: 10,
+    marginBottom: 20,
+    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
   textInput: {
     marginTop: 20,
     borderRadius: 10,
+    height: '100%',
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     width: '50%',
     fontFamily: 'Nunito-Regular',
   },
-  picker: {
-    marginTop: 20,
+  pickerView: {
     borderRadius: 10,
+    marginTop: 20,
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
+    height: '100%',
     width: '40%',
     fontFamily: 'Nunito-Regular',
   },
   findButton: {
     backgroundColor: '#FFCD61',
     marginHorizontal: 20,
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 40,
     justifyContent: 'center',
     alignItems: 'center',
@@ -54,7 +56,7 @@ export default StyleSheet.create({
     fontSize: 18,
   },
   recommended: {
-    // marginTop: -50,
+    marginVertical: 10,
   },
   recommendedHeading: {
     flexDirection: 'row',
@@ -75,5 +77,21 @@ export default StyleSheet.create({
   viewMore: {
     fontFamily: 'Nunito-Black',
     fontSize: 12,
+  },
+  date: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  datePicker: {
+    marginTop: 20,
+    width: '50%',
+    height: '100%',
+    fontSize: 16,
+    borderRadius: 10,
+    backgroundColor: 'rgba(240, 240, 240, 0.4)',
+    marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -18,7 +18,11 @@ export class Signup extends Component {
           style={Style.image}>
           <Text style={Style.heading}>LET'S HAVE{'\n'}SOME RIDE</Text>
           <View style={Style.content}>
-            <TextInput style={Style.textInput} placeholder="Email" />
+            <TextInput
+              style={Style.textInput}
+              placeholderTextColor="black"
+              placeholder="Email"
+            />
             <TextInput style={Style.textInput} placeholder="Mobile Phone" />
             <TextInput
               secureTextEntry={true}

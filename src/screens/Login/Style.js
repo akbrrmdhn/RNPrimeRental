@@ -21,9 +21,10 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   textInput: {
+    paddingHorizontal: 10,
     marginTop: 20,
     borderRadius: 10,
-    backgroundColor: 'rgba(250, 250, 250, 0.4)',
+    backgroundColor: 'rgba(250, 250, 250, 0.7)',
     width: '80%',
     fontFamily: 'Nunito-Regular',
   },

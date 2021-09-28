@@ -26,6 +26,7 @@ export default StyleSheet.create({
   itemMiscText: {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
+    marginVertical: 2,
   },
   locationDistance: {
     flexDirection: 'row',
@@ -52,29 +53,43 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   date: {
+    marginTop: 30,
+    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   datePicker: {
     width: '40%',
-    height: 50,
+    height: '100%',
     fontSize: 16,
     borderRadius: 10,
     backgroundColor: 'rgba(240, 240, 240, 1)',
-    marginVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   pickerView: {
     borderRadius: 10,
-    marginTop: 20,
     backgroundColor: 'rgba(240, 240, 240, 1)',
     width: '40%',
+    height: '100%',
     fontFamily: 'Nunito-Regular',
   },
   reserveText: {
     fontFamily: 'Nunito-Black',
     fontSize: 24,
+    marginVertical: 10,
+  },
+  addStockButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  miniButton: {
+    backgroundColor: '#FFCD61',
+    width: 20,
+    height: 20,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

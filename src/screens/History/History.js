@@ -54,7 +54,7 @@ export class History extends Component {
                     <Text style={Style.itemStatus}>{item.status}</Text>
                   </View>
                   <View style={Style.checkBox}>
-                    <Text>a</Text>
+                    <Text>check</Text>
                   </View>
                 </View>
               )}
