@@ -11,7 +11,7 @@ import Style from './Style';
 import profileAvatar from '../../assets/images/profile-avatar.jpg';
 import RadioButton from '../../components/RadioButton';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import {connect} from 'react-redux';
 export class UpdateProfile extends Component {
   handleChoosePhoto = () => {
     const options = {};
@@ -25,6 +25,9 @@ export class UpdateProfile extends Component {
       console.log('response', response);
     });
   };
+  componentDidMount() {
+    console.log(this.props.auth.isLogin);
+  }
   render() {
     return (
       <View style={Style.container}>
@@ -79,4 +82,10 @@ export class UpdateProfile extends Component {
   }
 }
 
-export default UpdateProfile;
+const mapStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+export default connect(mapStateToProps)(UpdateProfile);

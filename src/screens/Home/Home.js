@@ -14,11 +14,11 @@ import homeBackground from '../../assets/images/home.jpg';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import vespa from '../../assets/images/vespa.jpg';
-// import honda from '../../assets/images/honda.jpg';
 import axios from 'axios';
 import config from '../../../config';
+import {connect} from 'react-redux';
 
-export class Home extends Component {
+class Home extends Component {
   state = {
     date: new Date(),
     vehicleType: '',
@@ -38,6 +38,7 @@ export class Home extends Component {
     },
   ];
   componentDidMount() {
+    console.log('state: ', this.props.state);
     const url = config.API_URL;
     axios
       .get(`${url}/vehicles/score`, {
@@ -267,4 +268,10 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    state,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

@@ -3,7 +3,18 @@ import {Text, View, TouchableOpacity} from 'react-native';
 import Style from './Style';
 import IoniconsIcon from '../../../node_modules/react-native-vector-icons/Ionicons';
 
+import {connect} from 'react-redux';
+import {logoutAction} from '../../redux/actionCreators/auth';
+
 export class Profile extends Component {
+  logoutHandler = () => {
+    this.props.onLogout();
+  };
+  componentDidUpdate() {
+    if (!this.props.auth.isLogin) {
+      this.props.navigation.replace('Login');
+    }
+  }
   render() {
     return (
       <View style={Style.container}>
@@ -37,7 +48,7 @@ export class Profile extends Component {
           <View style={Style.logout}>
             <TouchableOpacity
               style={Style.logoutButton}
-              onPress={() => this.props.navigation.navigate('Login')}>
+              onPress={() => this.logoutHandler()}>
               <Text style={Style.logoutText}>Log Out</Text>
             </TouchableOpacity>
           </View>
@@ -47,4 +58,18 @@ export class Profile extends Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogout: body => {
+      dispatch(logoutAction(body));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

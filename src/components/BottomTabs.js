@@ -2,13 +2,13 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import IoniconsIcon from '../../node_modules/react-native-vector-icons/Ionicons';
 
-import {Home} from '../screens/Home/Home';
-import {History} from '../screens/History/History';
-import {Chat} from '../screens/Chat/Chat';
-import {Profile} from '../screens/Profile/Profile';
+import Home from '../screens/Home/Home';
+import History from '../screens/History/History';
+import Chat from '../screens/Chat/Chat';
+import Profile from '../screens/Profile/Profile';
 import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import ProfileStack from './ProfileStack';
+import {connect} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
@@ -80,9 +80,14 @@ const BottomTabs = () => {
         name="Profile"
         component={Profile}
       />
-      {/* <Tab.Screen name="ProfileStack" component={ProfileStack} /> */}
     </Tab.Navigator>
   );
 };
 
-export default BottomTabs;
+const mapStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+export default connect(mapStateToProps)(BottomTabs);

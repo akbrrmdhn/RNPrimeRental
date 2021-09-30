@@ -4,11 +4,31 @@ import Style from './Style';
 import LoginBackground from '../../assets/images/Login.jpg';
 import {TextInput} from 'react-native-gesture-handler';
 
+import {connect} from 'react-redux';
+import {loginAction} from '../../redux/actionCreators/auth';
+
 export class Login extends Component {
   state = {
     email: '',
     password: '',
   };
+  submitLogin = () => {
+    const form = new URLSearchParams();
+    form.append('email', this.state.email);
+    form.append('password', this.state.password);
+    this.props.onLogin(form);
+  };
+  componentDidMount() {
+    if (this.props.auth.isLogin) {
+      this.props.navigation.push('BottomTabs');
+    }
+  }
+  componentDidUpdate() {
+    console.log(this.props.auth.isLogin);
+    if (this.props.auth.isLogin) {
+      this.props.navigation.push('BottomTabs');
+    }
+  }
   render() {
     return (
       <View style={Style.container}>
@@ -39,7 +59,7 @@ export class Login extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={Style.loginButton}
-              onPress={() => this.props.navigation.navigate('BottomTabs')}>
+              onPress={() => this.submitLogin()}>
               <Text style={Style.loginText}>Login</Text>
             </TouchableOpacity>
             <View style={Style.dontHave}>
@@ -56,4 +76,18 @@ export class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: body => {
+      dispatch(loginAction(body));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
