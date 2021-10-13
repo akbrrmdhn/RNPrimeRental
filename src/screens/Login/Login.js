@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, ImageBackground, Text, View} from 'react-native';
+import {
+  TouchableOpacity,
+  ImageBackground,
+  Text,
+  View,
+  ToastAndroid,
+} from 'react-native';
 import Style from './Style';
 import LoginBackground from '../../assets/images/Login.jpg';
 import {TextInput} from 'react-native-gesture-handler';
@@ -13,10 +19,21 @@ export class Login extends Component {
     password: '',
   };
   submitLogin = () => {
+    if (this.state.email === '') {
+      return ToastAndroid.show('Email must not be empty!', ToastAndroid.SHORT);
+    }
+    if (this.state.password === '') {
+      return ToastAndroid.show(
+        'Password must not be empty!',
+        ToastAndroid.SHORT,
+      );
+    }
+
     const form = new URLSearchParams();
     form.append('email', this.state.email);
     form.append('password', this.state.password);
     this.props.onLogin(form);
+    ToastAndroid.show('Logged in successfully', ToastAndroid.SHORT);
   };
   componentDidMount() {
     if (this.props.auth.isLogin) {
@@ -24,7 +41,6 @@ export class Login extends Component {
     }
   }
   componentDidUpdate() {
-    console.log(this.props.auth.isLogin);
     if (this.props.auth.isLogin) {
       this.props.navigation.push('BottomTabs');
     }

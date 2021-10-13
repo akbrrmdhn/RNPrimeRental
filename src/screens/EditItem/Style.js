@@ -80,6 +80,18 @@ export default StyleSheet.create({
     fontSize: 24,
     marginVertical: 10,
   },
+  addStockButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  miniButton: {
+    backgroundColor: '#FFCD61',
+    width: 20,
+    height: 20,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   stockSection: {
     marginVertical: 10,
     flexDirection: 'row',

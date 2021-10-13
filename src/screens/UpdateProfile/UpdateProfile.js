@@ -9,32 +9,95 @@ import {
 } from 'react-native';
 import Style from './Style';
 import profileAvatar from '../../assets/images/profile-avatar.jpg';
-import RadioButton from '../../components/RadioButton';
+import {Radio} from 'native-base';
+import DatePicker from 'react-native-date-picker';
+// import {RadioButton} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {connect} from 'react-redux';
-export class UpdateProfile extends Component {
+import config from '../../../config';
+import {updateProfileAction} from '../../redux/actionCreators/auth';
+import getUser from '../../utils/https/users';
+import axios from 'axios';
+
+class UpdateProfile extends Component {
+  state = {
+    open: false,
+    name: '',
+    image: '',
+    gender_id: '',
+    email: '',
+    phone: '',
+    dob: new Date(),
+    address: '',
+  };
+  componentDidMount() {
+    const id = this.props.auth.authInfo.user_id;
+    const url = config.API_URL;
+    axios
+      .get(`${url}/users/${id}`, {
+        params: {id: String(id)},
+      })
+      .then(({data}) => {
+        const fetchUser = data.result[0];
+        this.setState({
+          name: fetchUser.name,
+          image: fetchUser.image,
+          gender_id: fetchUser.gender_id,
+          email: fetchUser.email,
+          phone: fetchUser.phone,
+          dob: fetchUser.date_of_birth,
+          address: fetchUser.address,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+  setOpen = value => {
+    this.setState({open: value});
+  };
   handleChoosePhoto = () => {
     const options = {};
-    launchImageLibrary(options, response => {
-      console.log('response', response);
+    launchImageLibrary(options, res => {
+      console.log('response', res);
+      this.setState({image: res});
     });
   };
   handleCamera = () => {
     const options = {};
-    launchCamera(options, response => {
-      console.log('response', response);
+    launchCamera(options, image => {
+      console.log('response', image);
     });
   };
-  componentDidMount() {
-    console.log(this.props.auth.isLogin);
-  }
+  saveProfile = () => {
+    const queries = new FormData();
+    queries.append('name', this.state.name);
+    queries.append('email', this.state.email);
+    queries.append('gender_id', this.state.gender_id);
+    queries.append('phone', this.state.phone);
+    // queries.append('date_of_birth', this.state.dob);
+    queries.append('address', this.state.address);
+    // console.log(this.props.auth.authInfo.user_id);
+    this.props.onUpdate(queries, this.props.auth.authInfo.user_id);
+    this.props.navigation.navigate('UpdateProfile');
+  };
+  // testButton = () => {
+  //   console.log(this.props.auth.authInfo.user_id);
+  // };
   render() {
+    const url = config.API_URL;
     return (
       <View style={Style.container}>
         <ScrollView style={Style.scrollView}>
           <View style={Style.profileImageSet}>
             <Image
-              source={profileAvatar}
+              source={
+                `${url}${this.state.image}`
+                  ? {
+                      uri: `${url}${this.state.image}`,
+                    }
+                  : profileAvatar
+              }
               resizeMode="cover"
               style={Style.profileAvatar}
             />
@@ -53,26 +116,66 @@ export class UpdateProfile extends Component {
           </View>
           <View style={Style.updateContent}>
             <Text style={Style.inputLabel}>Name:</Text>
-            <TextInput placeholder="Name" style={Style.textInput} />
-            <View style={Style.genders}>
-              <TouchableOpacity style={Style.radioStyle}>
-                <RadioButton />
-                <Text style={Style.genderText}> Male</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={Style.radioStyle}>
-                <RadioButton />
-                <Text style={Style.genderText}> Female</Text>
-              </TouchableOpacity>
-            </View>
+            <TextInput
+              defaultValue={this.state.name}
+              placeholder="Name"
+              style={Style.textInput}
+              onChangeText={text => this.setState({name: text})}
+            />
+            <Radio.Group
+              name="genderRadio"
+              defaultValue={this.state.gender_id}
+              value={this.state.gender_id}
+              onChange={nextValue => this.setState({gender_id: nextValue})}
+              style={Style.genders}>
+              <Radio colorScheme="yellow" value={1}>
+                Male
+              </Radio>
+              <Radio colorScheme="yellow" value={2}>
+                Female
+              </Radio>
+            </Radio.Group>
             <Text style={Style.inputLabel}>Email Address:</Text>
-            <TextInput placeholder="Email Address" style={Style.textInput} />
+            <TextInput
+              defaultValue={this.state.email}
+              placeholder="Email Address"
+              style={Style.textInput}
+              onChangeText={text => this.setState({email: text})}
+            />
             <Text style={Style.inputLabel}>Phone Number:</Text>
-            <TextInput placeholder="Phone Number" style={Style.textInput} />
+            <TextInput
+              defaultValue={this.state.phone}
+              placeholder="Phone Number"
+              style={Style.textInput}
+              onChangeText={text => this.setState({phone: text})}
+            />
             <Text style={Style.inputLabel}>Date of Birth:</Text>
-            <TextInput placeholder="Date of Birth" style={Style.textInput} />
+            {/* <TouchableOpacity
+              onPress={() => this.setOpen(true)}
+              style={Style.datePicker}>
+              <Text>{this.state.dob.toDateString()}</Text>
+            </TouchableOpacity>
+            <DatePicker
+              modal
+              mode="date"
+              open={this.state.open}
+              date={this.state.dob}
+              onConfirm={date => {
+                this.setOpen(false);
+                this.setState({dob: date});
+              }}
+              onCancel={() => this.setOpen(false)}
+            /> */}
             <Text style={Style.inputLabel}>Delivery Address:</Text>
-            <TextInput placeholder="Delivery Address" style={Style.textInput} />
-            <TouchableOpacity style={Style.submitButton}>
+            <TextInput
+              defaultValue={this.state.address}
+              placeholder="Delivery Address"
+              style={Style.textInput}
+              onChangeText={text => this.setState({address: text})}
+            />
+            <TouchableOpacity
+              style={Style.submitButton}
+              onPress={() => this.saveProfile()}>
               <Text style={Style.submitText}>Save Changes</Text>
             </TouchableOpacity>
           </View>
@@ -88,4 +191,12 @@ const mapStateToProps = ({auth}) => {
   };
 };
 
-export default connect(mapStateToProps)(UpdateProfile);
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdate: (body, id) => {
+      dispatch(updateProfileAction(body, id));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateProfile);

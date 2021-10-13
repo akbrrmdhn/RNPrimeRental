@@ -18,6 +18,12 @@ export default StyleSheet.create({
     borderTopRightRadius: 10,
     height: 220,
   },
+  adminFinder: {
+    backgroundColor: '#FFF',
+    marginTop: '-5%',
+    height: 150,
+    marginBottom: 10,
+  },
   finderRow: {
     marginHorizontal: 10,
     marginBottom: 20,
@@ -32,6 +38,8 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     width: '50%',
     fontFamily: 'Nunito-Regular',
+    borderColor: 'black',
+    borderWidth: 1,
   },
   pickerView: {
     borderRadius: 10,
@@ -40,6 +48,8 @@ export default StyleSheet.create({
     height: '100%',
     width: '40%',
     fontFamily: 'Nunito-Regular',
+    borderColor: 'black',
+    borderWidth: 1,
   },
   findButton: {
     backgroundColor: '#FFCD61',
@@ -48,7 +58,7 @@ export default StyleSheet.create({
     marginBottom: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    height: '30%',
+    height: '40%',
     borderRadius: 10,
   },
   buttonText: {
@@ -56,6 +66,7 @@ export default StyleSheet.create({
     fontSize: 18,
   },
   recommended: {
+    backgroundColor: '#FFF',
     marginVertical: 10,
   },
   recommendedHeading: {
@@ -93,5 +104,22 @@ export default StyleSheet.create({
     marginVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  addView: {
+    height: 100,
+    marginBottom: -20,
+  },
+  addNewItem: {
+    margin: 10,
+    backgroundColor: '#393939',
+    height: '50%',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addText: {
+    color: '#FFCD61',
+    fontFamily: 'Nunito-Black',
+    fontSize: 18,
   },
 });

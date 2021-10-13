@@ -5,7 +5,7 @@ import primeRentalLogo from '../../assets/images/primerental.png';
 const SplashScreen = ({navigation}) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Login');
+      navigation.replace('BottomTabs');
     }, 3000);
   }, [navigation]);
   return (

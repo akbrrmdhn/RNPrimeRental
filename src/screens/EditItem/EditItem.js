@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Image, TouchableOpacity, TextInput} from 'react-native';
+import config from '../../../config';
+import axios from 'axios';
 import Style from './Style';
+import car from '../../assets/images/car.jpg';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import IoniconsIcon from '../../../node_modules/react-native-vector-icons/Ionicons';
-import axios from 'axios';
-import car from '../../assets/images/car.jpg';
-import config from '../../../config';
 
-export class Order extends Component {
+class EditItem extends Component {
   state = {
     date: new Date(),
     open: false,
@@ -16,7 +16,6 @@ export class Order extends Component {
     name: '',
     category: '',
     stock: '',
-    maxStock: '',
     description: '',
     location: '',
     image: '',
@@ -42,7 +41,6 @@ export class Order extends Component {
           name: vehicleData.name,
           category: vehicleData.category,
           stock: vehicleData.stock,
-          maxStock: vehicleData.stock,
           description: vehicleData.description,
           location: vehicleData.location,
           image: `${url}${vehicleData.image}`,
@@ -65,27 +63,29 @@ export class Order extends Component {
           <View style={Style.content}>
             <View style={Style.itemHeading}>
               <View>
-                <Text style={Style.itemTitle}>{this.state.name}</Text>
+                <TextInput
+                  defaultValue={this.state.name}
+                  style={Style.itemTitle}
+                />
                 <Text style={Style.itemTitle}>Rp{this.state.price}/day</Text>
               </View>
               <View style={Style.itemMisc}>
-                <IoniconsIcon
-                  name="chatbubble-outline"
-                  size={40}
-                  color="#FFCD61"
-                />
+                <IoniconsIcon name="trash-outline" size={40} color="#FFCD61" />
               </View>
             </View>
             <View>
-              <Text style={Style.itemMiscText}>{this.state.description}</Text>
+              <TextInput
+                defaultValue={this.state.description}
+                style={Style.itemMiscText}
+              />
               <Text style={Style.itemMiscText}>No Prepayment</Text>
               <Text style={Style.itemMiscText}>status</Text>
               <View style={Style.locationDistance}>
                 <IoniconsIcon name="location" size={30} color="#FFCD61" />
-                <Text style={Style.locationDistanceText}>
-                  {' '}
-                  {this.state.location}
-                </Text>
+                <TextInput
+                  defaultValue={this.state.location}
+                  style={Style.locationDistanceText}
+                />
               </View>
               <View style={Style.locationDistance}>
                 <IoniconsIcon name="walk" size={30} color="#FFCD61" />
@@ -94,13 +94,12 @@ export class Order extends Component {
                   0.1 km near your place
                 </Text>
               </View>
-              <View style={Style.stockSection}>
-                <Text style={Style.sectionHeading}>Stock</Text>
-                <View style={Style.counter}>
+              <View style={Style.selectQty}>
+                <Text>Update Stock</Text>
+                <View style={Style.addStockButton}>
                   <TouchableOpacity
                     style={Style.counterButton}
                     onPress={() =>
-                      this.state.stock > 1 &&
                       this.setState({stock: this.state.stock - 1})
                     }>
                     <Text style={Style.sectionHeading}>-</Text>
@@ -109,7 +108,6 @@ export class Order extends Component {
                   <TouchableOpacity
                     style={Style.counterButton}
                     onPress={() =>
-                      this.state.stock < this.state.maxStock &&
                       this.setState({stock: this.state.stock + 1})
                     }>
                     <Text style={Style.sectionHeading}>+</Text>
@@ -147,7 +145,7 @@ export class Order extends Component {
                       name: this.state.name,
                     })
                   }>
-                  <Text style={Style.reserveText}>Reservation</Text>
+                  <Text style={Style.reserveText}>Update Item</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -158,4 +156,4 @@ export class Order extends Component {
   }
 }
 
-export default Order;
+export default EditItem;

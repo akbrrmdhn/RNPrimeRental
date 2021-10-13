@@ -65,8 +65,6 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         options={{
-          headerShown: true,
-          title: 'Profile',
           tabBarIcon: ({focused}) => (
             <View>
               <IoniconsIcon

@@ -1,4 +1,9 @@
-import {signIn, signOut} from '../actionCreators/actionString';
+import {
+  signIn,
+  signOut,
+  signUp,
+  updateProfile,
+} from '../actionCreators/actionString';
 import {ActionType} from 'redux-promise-middleware';
 
 const initialState = {
@@ -40,6 +45,26 @@ const authReducer = (prevState = initialState, action) => {
         authInfo: action.payload.data.result.userInfo,
         token: action.payload.data.result.token,
       };
+    case signUp.concat('_', Pending):
+      return {
+        ...prevState,
+        isPending: true,
+        isFulfilled: false,
+        isRejected: false,
+      };
+    case signUp.concat('_', Rejected):
+      return {
+        ...prevState,
+        isPending: false,
+        isRejected: true,
+        error: action.payload,
+      };
+    case signUp.concat('_', Fulfilled):
+      return {
+        ...prevState,
+        isPending: false,
+        isFulfilled: true,
+      };
     case signOut.concat('_', Pending):
       return {
         ...prevState,
@@ -62,6 +87,27 @@ const authReducer = (prevState = initialState, action) => {
         authInfo: {},
         isLogin: false,
         token: '',
+      };
+    case updateProfile.concat('_', Pending):
+      return {
+        ...prevState,
+        isPending: true,
+        isFulfilled: false,
+        isRejected: false,
+      };
+    case updateProfile.concat('_', Rejected):
+      return {
+        ...prevState,
+        isPending: false,
+        isRejected: true,
+        error: action.payload,
+      };
+    case updateProfile.concat('_', Fulfilled):
+      return {
+        ...prevState,
+        isPending: false,
+        isFulfilled: true,
+        authInfo: action.payload.data.result,
       };
     default:
       return prevState;

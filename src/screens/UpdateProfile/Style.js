@@ -11,16 +11,18 @@ export default StyleSheet.create({
   profileAvatar: {
     borderRadius: 50,
     width: '30%',
-    height: '80%',
+    height: '70%',
   },
   profileImageSet: {
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    height: '20%',
+    alignItems: 'center',
+    height: 150,
   },
   imageButtons: {
     justifyContent: 'space-evenly',
+    height: '100%',
   },
   takeButton: {
     backgroundColor: '#393939',
@@ -69,6 +71,7 @@ export default StyleSheet.create({
     fontFamily: 'Nunito-Black',
     fontSize: 13,
     color: '#B8B8B8',
+    marginVertical: 10,
   },
   textInput: {
     borderBottomColor: '#393939',
@@ -80,11 +83,24 @@ export default StyleSheet.create({
     backgroundColor: '#FFCD61',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '15%',
+    height: '12%',
     borderRadius: 10,
   },
   submitText: {
     fontFamily: 'Nunito-Black',
     fontSize: 24,
+  },
+  datePicker: {
+    marginTop: 20,
+    width: '100%',
+    height: 20,
+    fontSize: 16,
+    borderRadius: 10,
+    backgroundColor: 'rgba(240, 240, 240, 0.4)',
+    marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
   },
 });
