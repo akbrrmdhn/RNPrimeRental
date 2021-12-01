@@ -45,7 +45,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   logoutButton: {
-    marginTop: '60%',
+    marginTop: '40%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFCD61',

@@ -65,4 +65,13 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
+  wrapperError: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  textError: {
+    color: '#FF5B37',
+    fontFamily: 'Nunito-Regular',
+    fontSize: 16,
+  },
 });

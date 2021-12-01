@@ -14,6 +14,7 @@ const initialState = {
   isRejected: false,
   isLogin: false,
   error: {},
+  status: '',
 };
 
 const authReducer = (prevState = initialState, action) => {
@@ -27,6 +28,7 @@ const authReducer = (prevState = initialState, action) => {
         isFulfilled: false,
         isRejected: false,
         isLogin: false,
+        error: '',
       };
     case signIn.concat('_', Rejected):
       return {
@@ -37,6 +39,7 @@ const authReducer = (prevState = initialState, action) => {
         error: action.payload,
       };
     case signIn.concat('_', Fulfilled):
+      console.log(action.payload);
       return {
         ...prevState,
         isPending: false,
@@ -64,6 +67,7 @@ const authReducer = (prevState = initialState, action) => {
         ...prevState,
         isPending: false,
         isFulfilled: true,
+        status: action.payload.status,
       };
     case signOut.concat('_', Pending):
       return {

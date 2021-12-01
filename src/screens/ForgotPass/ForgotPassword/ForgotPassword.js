@@ -7,8 +7,27 @@ import {
   TextInput,
 } from 'react-native';
 import Style from './Style';
-import ForgotPasswordBackground from '../../assets/images/forgotpassword.jpg';
+import ForgotPasswordBackground from '../../../assets/images/forgotpassword.jpg';
+import {forgotPassword} from '../../../utils/https/users';
 export class ForgotPassword extends Component {
+  state = {
+    email: '',
+  };
+  codeHandler = () => {
+    console.log(this.state.email);
+    const body = {email: this.state.email};
+    forgotPassword(body)
+      .then(result =>
+        setTimeout(
+          () =>
+            this.props.navigation.navigate('CheckCode', {
+              email: this.state.email,
+            }),
+          5000,
+        ),
+      )
+      .catch(err => console.log(err));
+  };
   render() {
     return (
       <View style={Style.container}>
@@ -23,9 +42,13 @@ export class ForgotPassword extends Component {
             </Text>
             <TextInput
               style={Style.textInput}
+              placeholderTextColor="black"
               placeholder="Enter your email address"
+              onChangeText={text => this.setState({email: text})}
             />
-            <TouchableOpacity style={Style.sendButton}>
+            <TouchableOpacity
+              style={Style.sendButton}
+              onPress={() => this.codeHandler()}>
               <Text style={Style.sendText}>Send Code</Text>
             </TouchableOpacity>
             <TouchableOpacity style={Style.resendButton}>

@@ -3,14 +3,26 @@ import config from '../../../config';
 
 const url = config.API_URL;
 
-export const getUser = id => {
-  return axios.get(`${url}/users/${id}`, {
-    params: {
-      id: String(id),
-    },
+export const getUser = token => {
+  return axios.get(`${url}/users/`, {
+    headers: {'x-access-token': `Bearer ${token}`},
   });
 };
 
-export const postUpdateProfile = (body, id) => {
-  return axios.patch(`${url}/users/edituser/${id}`, body);
+export const postUpdateProfile = (body, token) => {
+  return axios.patch(`${url}/users/edituser/`, body, {
+    headers: {'x-access-token': `Bearer ${token}`},
+  });
+};
+
+export const forgotPassword = body => {
+  return axios.post(`${url}/auth/forgot-password`, body);
+};
+
+export const checkCode = body => {
+  return axios.post(`${url}/auth/forgot-password/code`, body);
+};
+
+export const changePassword = body => {
+  return axios.patch(`${url}/auth/forgot-password/change-password`, body);
 };

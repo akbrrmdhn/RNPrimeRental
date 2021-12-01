@@ -13,16 +13,20 @@ export default StyleSheet.create({
     fontFamily: 'Roboto-Black',
     color: '#FFF',
     fontSize: 36,
-    marginTop: 50,
-    marginBottom: 100,
-    paddingLeft: 20,
+    marginTop: 100,
+    padding: 25,
+    textAlign: 'center',
   },
   content: {
-    paddingTop: 50,
+    marginTop: 70,
     alignItems: 'center',
   },
+  enterEmailText: {
+    fontFamily: 'Nunito-Regular',
+    color: '#FFF',
+  },
   textInput: {
-    marginBottom: 20,
+    marginVertical: 20,
     borderRadius: 10,
     backgroundColor: 'rgba(250, 250, 250, 0.6)',
     width: '80%',
@@ -30,39 +34,25 @@ export default StyleSheet.create({
     color: '#000',
     paddingHorizontal: 15,
   },
-  signupButton: {
+  sendButton: {
+    marginVertical: 20,
     backgroundColor: '#FFCD61',
     width: '80%',
-    height: '15%',
+    height: 50,
+    borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
   },
-  signupText: {
+  sendText: {
     fontFamily: 'Nunito-Black',
     fontSize: 18,
   },
-  alreadyHave: {
-    marginTop: 30,
-    flexDirection: 'row',
-  },
-  alreadyText: {
-    fontFamily: 'Nunito-Regular',
-    color: '#FFF',
-  },
-  loginText: {
-    fontFamily: 'Nunito-Regular',
-    color: '#FFF',
-    textDecorationLine: 'underline',
-    fontWeight: 'bold',
-  },
-  wrapperError: {
+  resendButton: {
+    backgroundColor: '#FFF',
+    width: '80%',
+    height: 50,
+    borderRadius: 10,
     alignItems: 'center',
-    marginVertical: 20,
-  },
-  textError: {
-    color: '#FF5B37',
-    fontFamily: 'Nunito-Regular',
-    fontSize: 16,
+    justifyContent: 'center',
   },
 });

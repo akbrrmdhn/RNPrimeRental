@@ -8,10 +8,9 @@ import {PersistGate} from 'redux-persist/integration/react';
 
 import Login from './src/screens/Login/Login';
 import Signup from './src/screens/Signup/Signup';
-import ForgotPassword from './src/screens/ForgotPassword/ForgotPassword';
 import BottomTabs from './src/components/BottomTabs';
 import UpdateProfile from './src/screens/UpdateProfile/UpdateProfile';
-import Order from './src/screens/Order/Order';
+import Details from './src/screens/Details/Details';
 import Payment from './src/screens/Payment/Payment';
 import Payment2 from './src/screens/Payment/Payment2';
 import Payment3 from './src/screens/Payment/Payment3';
@@ -20,8 +19,14 @@ import Search from './src/screens/Search/Search';
 import SplashScreen from './src/screens/SplashScreen/SplashScreen';
 import AddItem from './src/screens/AddItem/AddItem';
 import EditItem from './src/screens/EditItem/EditItem';
+import Filter from './src/screens/Filter/Filter';
 import {NativeBaseProvider} from 'native-base';
 import Favourites from './src/screens/Favourites/Favourites';
+import UpdatePassword from './src/screens/UpdatePassword/UpdatePassword';
+import ForgotPassword from './src/screens/ForgotPass/ForgotPassword/ForgotPassword';
+import ChangePassword from './src/screens/ForgotPass/ChangePassword/ChangePassword';
+import CheckCode from './src/screens/ForgotPass/CheckCode/CheckCode';
+import {black} from 'react-native-paper/lib/typescript/styles/colors';
 
 const redux = reduxStore();
 
@@ -61,6 +66,24 @@ const App = () => {
               <StackScreen
                 options={{
                   headerShown: true,
+                  headerTransparent: true,
+                  title: 'Check Code',
+                }}
+                name="CheckCode">
+                {props => <CheckCode {...props} />}
+              </StackScreen>
+              <StackScreen
+                options={{
+                  headerShown: true,
+                  headerTransparent: true,
+                  title: 'Change Password',
+                }}
+                name="ChangePassword">
+                {props => <ChangePassword {...props} />}
+              </StackScreen>
+              <StackScreen
+                options={{
+                  headerShown: true,
                   title: 'Update Profile',
                   headerTintColor: '#393939',
                 }}
@@ -74,8 +97,8 @@ const App = () => {
                   title: '',
                   headerTintColor: 'black',
                 }}
-                name="Order">
-                {props => <Order {...props} />}
+                name="Details">
+                {props => <Details {...props} />}
               </StackScreen>
               <StackScreen
                 options={{
@@ -124,8 +147,26 @@ const App = () => {
               <StackScreen name="EditItem" options={{headerShown: false}}>
                 {props => <EditItem {...props} />}
               </StackScreen>
-              <StackScreen name="Favourites">
+              <StackScreen
+                name="Favourites"
+                options={{
+                  headerShown: true,
+                  headerTransparent: false,
+                  headerTintColor: 'black',
+                }}>
                 {props => <Favourites {...props} />}
+              </StackScreen>
+              <StackScreen name="UpdatePassword">
+                {props => <UpdatePassword {...props} />}
+              </StackScreen>
+              <StackScreen
+                name="Filter"
+                options={{
+                  headerShown: true,
+                  title: 'Filter',
+                  headerTintColor: '#393939',
+                }}>
+                {props => <Filter {...props} />}
               </StackScreen>
             </StackNav>
           </NavigationContainer>

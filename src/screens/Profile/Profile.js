@@ -1,27 +1,19 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  Alert,
-  ToastAndroid,
-} from 'react-native';
+import {Text, View, TouchableOpacity, Alert, ToastAndroid} from 'react-native';
 import Style from './Style';
 import IoniconsIcon from '../../../node_modules/react-native-vector-icons/Ionicons';
 
 import {connect} from 'react-redux';
 import {logoutAction} from '../../redux/actionCreators/auth';
-import config from '../../../config';
-import person from '../../assets/images/person.jpg';
+import socket from '../../utils/SocketIo';
 class Profile extends Component {
   state = {
     image: this.props.auth.authInfo.image,
     name: this.props.auth.authInfo.name,
-    userSelection: '',
   };
   logoutHandler = () => {
-    this.props.onLogout();
+    this.props.onLogout(this.props.auth.token);
+    socket.off(this.props.auth.authInfo.user_id);
     ToastAndroid.show('Logged out successfully.', ToastAndroid.SHORT);
   };
   promptUser = () => {
@@ -51,22 +43,9 @@ class Profile extends Component {
     }
   }
   render() {
-    const url = config.API_URL;
     return (
       <View style={Style.container}>
         <View style={Style.content}>
-          <View style={Style.head}>
-            <Image
-              source={
-                `${url}${this.state.image}`
-                  ? {uri: `${url}${this.state.image}`}
-                  : person
-              }
-              resizeMode="cover"
-              style={Style.profileAvatar}
-            />
-            <Text style={Style.name}>{this.state.name}</Text>
-          </View>
           <View style={Style.menuItem}>
             <TouchableOpacity
               style={Style.pressUpdate}
@@ -90,8 +69,16 @@ class Profile extends Component {
           <View style={Style.menuItem}>
             <TouchableOpacity
               style={Style.pressUpdate}
-              onPressOut={() => this.props.navigation.push('UpdateProfile')}>
+              onPress={() => this.props.navigation.push('UpdateProfile')}>
               <Text style={Style.menuText}>Update Profile</Text>
+              <IoniconsIcon name="chevron-forward" size={30} color="#000" />
+            </TouchableOpacity>
+          </View>
+          <View style={Style.menuItem}>
+            <TouchableOpacity
+              style={Style.pressUpdate}
+              onPress={() => this.props.navigation.push('UpdatePassword')}>
+              <Text style={Style.menuText}>Update Password</Text>
               <IoniconsIcon name="chevron-forward" size={30} color="#000" />
             </TouchableOpacity>
           </View>

@@ -26,17 +26,19 @@ export default StyleSheet.create({
     color: '#FFF',
   },
   textInput: {
-    marginTop: 20,
+    marginVertical: 20,
     borderRadius: 10,
-    backgroundColor: 'rgba(250, 250, 250, 0.4)',
+    backgroundColor: 'rgba(250, 250, 250, 0.6)',
     width: '80%',
     fontFamily: 'Nunito-Regular',
+    color: '#000',
+    paddingHorizontal: 15,
   },
   sendButton: {
     marginVertical: 20,
     backgroundColor: '#FFCD61',
     width: '80%',
-    height: '18%',
+    height: 50,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
@@ -48,9 +50,18 @@ export default StyleSheet.create({
   resendButton: {
     backgroundColor: '#FFF',
     width: '80%',
-    height: '18%',
+    height: 50,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  wrapperError: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  textError: {
+    color: '#FF5B37',
+    fontFamily: 'Nunito-Regular',
+    fontSize: 16,
   },
 });

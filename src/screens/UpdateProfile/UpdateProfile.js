@@ -6,24 +6,27 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  PermissionsAndroid,
+  Platform,
+  ToastAndroid,
 } from 'react-native';
 import Style from './Style';
 import profileAvatar from '../../assets/images/profile-avatar.jpg';
 import {Radio} from 'native-base';
 import DatePicker from 'react-native-date-picker';
-// import {RadioButton} from 'react-native-paper';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {connect} from 'react-redux';
 import config from '../../../config';
 import {updateProfileAction} from '../../redux/actionCreators/auth';
-import getUser from '../../utils/https/users';
-import axios from 'axios';
+import {getUser} from '../../utils/https/users';
+import {format} from 'date-fns';
 
 class UpdateProfile extends Component {
   state = {
     open: false,
     name: '',
-    image: '',
+    image: profileAvatar,
+    upload: '',
     gender_id: '',
     email: '',
     phone: '',
@@ -31,12 +34,10 @@ class UpdateProfile extends Component {
     address: '',
   };
   componentDidMount() {
-    const id = this.props.auth.authInfo.user_id;
-    const url = config.API_URL;
-    axios
-      .get(`${url}/users/${id}`, {
-        params: {id: String(id)},
-      })
+    this.props.auth.isFulfilled = false;
+    this.props.auth.isRejected = false;
+    const token = this.props.auth.token;
+    getUser(token)
       .then(({data}) => {
         const fetchUser = data.result[0];
         this.setState({
@@ -45,7 +46,7 @@ class UpdateProfile extends Component {
           gender_id: fetchUser.gender_id,
           email: fetchUser.email,
           phone: fetchUser.phone,
-          dob: fetchUser.date_of_birth,
+          dob: new Date(fetchUser.date_of_birth),
           address: fetchUser.address,
         });
       })
@@ -59,31 +60,72 @@ class UpdateProfile extends Component {
   handleChoosePhoto = () => {
     const options = {};
     launchImageLibrary(options, res => {
-      console.log('response', res);
-      this.setState({image: res});
+      if (res.didCancel) {
+        console.log('User canceled image picker.');
+      } else if (res.error) {
+        console.log('ImagePicker Error: ', res.error);
+      } else {
+        console.log('response', res);
+        this.setState({image: res.assets[0], upload: res.assets[0]});
+      }
     });
   };
   handleCamera = () => {
     const options = {};
-    launchCamera(options, image => {
-      console.log('response', image);
+    launchCamera(options, res => {
+      if (res.didCancel) {
+        console.log('User canceled image picker.');
+      } else if (res.error) {
+        console.log('ImagePicker Error: ', res.error);
+      } else {
+        console.log('response', res.assets[0]);
+        this.setState({image: res.assets[0].uri, upload: res.assets[0]});
+      }
     });
+  };
+  requestCameraPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.handleCamera();
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
   saveProfile = () => {
     const queries = new FormData();
     queries.append('name', this.state.name);
+    queries.append('image', {
+      name: this.state.upload.fileName,
+      type: this.state.upload.type,
+      uri:
+        Platform.OS === 'android'
+          ? this.state.upload.uri
+          : this.state.upload.uri.replace('file://', ''),
+    });
     queries.append('email', this.state.email);
     queries.append('gender_id', this.state.gender_id);
     queries.append('phone', this.state.phone);
-    // queries.append('date_of_birth', this.state.dob);
+    queries.append('date_of_birth', format(this.state.dob, 'yyyy-MM-dd'));
     queries.append('address', this.state.address);
-    // console.log(this.props.auth.authInfo.user_id);
-    this.props.onUpdate(queries, this.props.auth.authInfo.user_id);
-    this.props.navigation.navigate('UpdateProfile');
+    console.log('token: ', this.props.auth.token);
+    console.log('query: ', queries);
+    // this.props.onUpdate(queries, this.props.auth.token);
   };
-  // testButton = () => {
-  //   console.log(this.props.auth.authInfo.user_id);
-  // };
+  componentDidUpdate() {
+    if (this.props.auth.isFulfilled === true) {
+      ToastAndroid.show('Profile updated successfully', ToastAndroid.SHORT);
+      this.props.navigation.navigate('Profile');
+    }
+    if (this.props.auth.isRejected === true) {
+      ToastAndroid.show('An error occured', ToastAndroid.SHORT);
+    }
+  }
   render() {
     const url = config.API_URL;
     return (
@@ -104,7 +146,7 @@ class UpdateProfile extends Component {
             <View style={Style.imageButtons}>
               <TouchableOpacity
                 style={Style.takeButton}
-                onPress={this.handleCamera}>
+                onPress={this.requestCameraPermission}>
                 <Text style={Style.takeText}>Take a Picture</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -150,7 +192,7 @@ class UpdateProfile extends Component {
               onChangeText={text => this.setState({phone: text})}
             />
             <Text style={Style.inputLabel}>Date of Birth:</Text>
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={() => this.setOpen(true)}
               style={Style.datePicker}>
               <Text>{this.state.dob.toDateString()}</Text>
@@ -162,10 +204,10 @@ class UpdateProfile extends Component {
               date={this.state.dob}
               onConfirm={date => {
                 this.setOpen(false);
-                this.setState({dob: date});
+                this.setState({dob: date}, () => console.log(this.state.dob));
               }}
               onCancel={() => this.setOpen(false)}
-            /> */}
+            />
             <Text style={Style.inputLabel}>Delivery Address:</Text>
             <TextInput
               defaultValue={this.state.address}
@@ -193,8 +235,8 @@ const mapStateToProps = ({auth}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdate: (body, id) => {
-      dispatch(updateProfileAction(body, id));
+    onUpdate: (body, token) => {
+      dispatch(updateProfileAction(body, token));
     },
   };
 };

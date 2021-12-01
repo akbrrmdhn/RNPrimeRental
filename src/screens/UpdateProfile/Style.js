@@ -10,8 +10,8 @@ export default StyleSheet.create({
   },
   profileAvatar: {
     borderRadius: 50,
-    width: '30%',
-    height: '70%',
+    width: 100,
+    height: 100,
   },
   profileImageSet: {
     marginTop: 10,
@@ -52,7 +52,7 @@ export default StyleSheet.create({
   },
   updateContent: {
     marginHorizontal: 20,
-    paddingBottom: '45%',
+    paddingBottom: '20%',
   },
   genders: {
     flexDirection: 'row',
@@ -80,6 +80,7 @@ export default StyleSheet.create({
     fontFamily: 'Nunito-Regular',
   },
   submitButton: {
+    marginTop: 20,
     backgroundColor: '#FFCD61',
     justifyContent: 'center',
     alignItems: 'center',

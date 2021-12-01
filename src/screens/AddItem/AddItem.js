@@ -70,6 +70,7 @@ class AddItem extends Component {
       'Content type': 'multipart/form-data',
     });
     ToastAndroid.show('Item added successfully', ToastAndroid.SHORT);
+    this.props.navigation.pop();
   };
   render() {
     return (
@@ -136,6 +137,7 @@ class AddItem extends Component {
                     <TouchableOpacity
                       style={Style.counterButton}
                       onPress={() =>
+                        this.state.stock > 1 &&
                         this.setState({stock: this.state.stock - 1})
                       }>
                       <Text style={Style.sectionHeading}>-</Text>

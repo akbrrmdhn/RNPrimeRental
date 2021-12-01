@@ -9,7 +9,8 @@ import {
 import Style from './Style';
 import LoginBackground from '../../assets/images/Login.jpg';
 import {TextInput} from 'react-native-gesture-handler';
-
+import socket from '../../utils/SocketIo';
+import PushNotification from 'react-native-push-notification';
 import {connect} from 'react-redux';
 import {loginAction} from '../../redux/actionCreators/auth';
 
@@ -17,15 +18,16 @@ export class Login extends Component {
   state = {
     email: '',
     password: '',
+    error: '',
   };
   submitLogin = () => {
     if (this.state.email === '') {
-      return ToastAndroid.show('Email must not be empty!', ToastAndroid.SHORT);
+      return ToastAndroid.show('Email must not be empty!', ToastAndroid.LONG);
     }
     if (this.state.password === '') {
       return ToastAndroid.show(
         'Password must not be empty!',
-        ToastAndroid.SHORT,
+        ToastAndroid.LONG,
       );
     }
 
@@ -33,15 +35,35 @@ export class Login extends Component {
     form.append('email', this.state.email);
     form.append('password', this.state.password);
     this.props.onLogin(form);
-    ToastAndroid.show('Logged in successfully', ToastAndroid.SHORT);
   };
   componentDidMount() {
+    this.props.auth.isFulfilled = false;
+    this.props.auth.isRejected = false;
     if (this.props.auth.isLogin) {
       this.props.navigation.push('BottomTabs');
     }
   }
+  setError = msg => {
+    this.setState({error: msg});
+  };
   componentDidUpdate() {
-    if (this.props.auth.isLogin) {
+    if (this.props.auth.isRejected === true) {
+      if (String(this.props.auth.error.message).includes('401')) {
+        return ToastAndroid.show(
+          'Incorrect Email or Password',
+          ToastAndroid.SHORT,
+        );
+      }
+    }
+    if (this.props.auth.isFulfilled === true) {
+      socket.on('connect');
+      socket.on(this.props.auth.authInfo.user_id, data => {
+        PushNotification.localNotification({
+          channelId: 'chat-channel',
+          title: 'Message from' + data.sender_name,
+          message: data.message,
+        });
+      });
       this.props.navigation.push('BottomTabs');
     }
   }
@@ -57,12 +79,14 @@ export class Login extends Component {
             <TextInput
               placeholder="Email"
               style={Style.textInput}
+              placeholderTextColor="black"
               onChangeText={text => this.setState({email: text})}
             />
             <TextInput
               secureTextEntry={true}
               placeholder="Password"
               style={Style.textInput}
+              placeholderTextColor="black"
               onChangeText={text =>
                 this.setState({
                   password: text,
@@ -73,6 +97,13 @@ export class Login extends Component {
               onPress={() => this.props.navigation.navigate('ForgotPassword')}>
               <Text style={Style.forgotPassword}>Forgot Password?</Text>
             </TouchableOpacity>
+            {this.state.error ? (
+              <View style={Style.wrapperError}>
+                <Text style={Style.textError}>{this.state.error}</Text>
+              </View>
+            ) : (
+              <View />
+            )}
             <TouchableOpacity
               style={Style.loginButton}
               onPress={() => this.submitLogin()}>

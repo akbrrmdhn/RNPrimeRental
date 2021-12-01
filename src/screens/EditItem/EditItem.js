@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+  ToastAndroid,
+} from 'react-native';
 import config from '../../../config';
 import axios from 'axios';
 import Style from './Style';
@@ -7,6 +15,7 @@ import car from '../../assets/images/car.jpg';
 import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import IoniconsIcon from '../../../node_modules/react-native-vector-icons/Ionicons';
+import {connect} from 'react-redux';
 
 class EditItem extends Component {
   state = {
@@ -16,6 +25,7 @@ class EditItem extends Component {
     name: '',
     category: '',
     stock: '',
+    maxStock: '',
     description: '',
     location: '',
     image: '',
@@ -41,16 +51,53 @@ class EditItem extends Component {
           name: vehicleData.name,
           category: vehicleData.category,
           stock: vehicleData.stock,
+          maxStock: vehicleData.stock,
           description: vehicleData.description,
           location: vehicleData.location,
           image: `${url}${vehicleData.image}`,
           price: vehicleData.price,
+          owner_id: vehicleData.owner_id,
         });
       })
       .catch(err => {
         console.log(err);
       });
   }
+  onSave = () => {
+    if (this.state.name === '') {
+      return ToastAndroid.show('Name must not be empty!', ToastAndroid.SHORT);
+    }
+    if (this.state.price === '') {
+      return ToastAndroid.show('Price must not be empty!', ToastAndroid.SHORT);
+    }
+    if (this.state.description === '') {
+      return ToastAndroid.show(
+        'Description must not be empty!',
+        ToastAndroid.SHORT,
+      );
+    }
+    if (this.state.location_id === '') {
+      return ToastAndroid.show('Choose a location!', ToastAndroid.SHORT);
+    }
+    if (this.state.category_id === '') {
+      return ToastAndroid.show('Choose a vehicle type!', ToastAndroid.SHORT);
+    }
+    if (this.state.stock === 0) {
+      return ToastAndroid.show('Stock must not be empty!', ToastAndroid.SHORT);
+    }
+
+    const queries = new FormData();
+    const url = config.API_URL;
+    const id = this.state.id;
+    queries.append('name', this.state.name);
+    queries.append('price', this.state.price);
+    queries.append('description', this.state.description);
+    queries.append('stock', this.state.stock);
+    queries.append('owner_id', this.props.auth.authInfo.user_id);
+    axios.patch(`${url}/vehicles/${id}`, queries);
+    ToastAndroid.show('Item modified successfully', ToastAndroid.SHORT);
+    this.props.navigation.pop();
+  };
   render() {
     return (
       <View style={Style.container}>
@@ -60,16 +107,19 @@ class EditItem extends Component {
             resizeMode="cover"
             style={Style.image}
           />
-          <View style={Style.content}>
+          <ScrollView style={Style.content}>
             <View style={Style.itemHeading}>
               <View>
                 <TextInput
                   defaultValue={this.state.name}
                   style={Style.itemTitle}
+                  onChangeText={text => this.setState({name: text})}
                 />
                 <Text style={Style.itemTitle}>Rp{this.state.price}/day</Text>
               </View>
               <View style={Style.itemMisc}>
+                <IoniconsIcon name="camera-outline" size={40} color="#FFCD61" />
+                <IoniconsIcon name="image-outline" size={40} color="#FFCD61" />
                 <IoniconsIcon name="trash-outline" size={40} color="#FFCD61" />
               </View>
             </View>
@@ -77,6 +127,7 @@ class EditItem extends Component {
               <TextInput
                 defaultValue={this.state.description}
                 style={Style.itemMiscText}
+                onChangeText={text => this.setState({description: text})}
               />
               <Text style={Style.itemMiscText}>No Prepayment</Text>
               <Text style={Style.itemMiscText}>status</Text>
@@ -100,11 +151,12 @@ class EditItem extends Component {
                   <TouchableOpacity
                     style={Style.counterButton}
                     onPress={() =>
+                      this.state.stock > 1 &&
                       this.setState({stock: this.state.stock - 1})
                     }>
                     <Text style={Style.sectionHeading}>-</Text>
                   </TouchableOpacity>
-                  <Text style={Style.sectionHeading}>{this.state.stock}</Text>
+                  <Text style={Style.stockNum}>{this.state.stock}</Text>
                   <TouchableOpacity
                     style={Style.counterButton}
                     onPress={() =>
@@ -114,46 +166,25 @@ class EditItem extends Component {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={Style.date}>
-                <TouchableOpacity
-                  onPress={() => this.setOpen(true)}
-                  style={Style.datePicker}>
-                  <Text>Date</Text>
-                </TouchableOpacity>
-                <DatePicker
-                  modal
-                  open={this.state.open}
-                  date={this.state.date}
-                  onCancel={() => this.setOpen(false)}
-                />
-                <View style={Style.pickerView}>
-                  <Picker>
-                    <Picker.Item label="1 day" />
-                    <Picker.Item label="2 days" />
-                    <Picker.Item label="3 days" />
-                    <Picker.Item label="4 days" />
-                    <Picker.Item label="5 days" />
-                  </Picker>
-                </View>
-              </View>
               <View style={Style.button}>
                 <TouchableOpacity
                   style={Style.reserveButton}
-                  onPress={() =>
-                    this.props.navigation.push('Payment', {
-                      image: this.state.image,
-                      name: this.state.name,
-                    })
-                  }>
+                  onPress={() => this.onSave()}>
                   <Text style={Style.reserveText}>Update Item</Text>
                 </TouchableOpacity>
               </View>
             </View>
-          </View>
+          </ScrollView>
         </View>
       </View>
     );
   }
 }
 
-export default EditItem;
+const mapStateToProps = ({auth}) => {
+  return {
+    auth,
+  };
+};
+
+export default connect(mapStateToProps)(EditItem);

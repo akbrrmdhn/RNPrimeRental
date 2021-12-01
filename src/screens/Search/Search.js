@@ -13,20 +13,26 @@ import Style from './Style';
 import car from '../../assets/images/car.jpg';
 import IoniconsIcon from '../../../node_modules/react-native-vector-icons/Ionicons';
 export class Search extends Component {
+  params = this.props.route.params;
   state = {
+    keyword: this.params?.keyword ? this.params.keyword : null,
     vehicles: [],
   };
-  componentDidMount() {
-    const {vehicle_category, location_id} = this.props.route.params;
+
+  searchVehicle = (query, location, category) => {
     const url = config.API_URL;
-    axios
+    let search = query && {keyword: query};
+    if (location) {
+      search = {...search, ...{location_id: location}};
+    }
+    if (category) {
+      search = {...search, ...{category_id: category}};
+    }
+    console.log('search query is ', search);
+
+    return axios
       .get(`${url}/vehicles/`, {
-        params: {
-          category_id: vehicle_category,
-          location_id: location_id,
-          order_by: 'v.score',
-          sort: 'DESC',
-        },
+        params: search,
       })
       .then(({data}) => {
         this.setState({vehicles: data.result.data});
@@ -34,13 +40,45 @@ export class Search extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.searchVehicle(
+        this.state.keyword,
+        this.props.route.params.location_id,
+        this.props.route.params.category_id,
+      );
+    });
+  }
+  componentWillUnmount() {
+    console.log('goodbye');
+    this._unsubscribe();
   }
   render() {
     const url = config.API_URL;
     return (
       <View style={Style.container}>
-        <TextInput placeholder="Search Vehicles..." style={Style.textInput} />
-        <TouchableOpacity style={Style.filter}>
+        <TextInput
+          placeholder="Search Vehicles..."
+          style={Style.textInput}
+          onEndEditing={e => {
+            this.searchVehicle(
+              e.nativeEvent.text,
+              this.props.route.params.location_id,
+              this.props.route.params.category_id,
+            );
+            this.setState({keyword: e.nativeEvent.text});
+          }}
+        />
+        <TouchableOpacity
+          style={Style.filter}
+          onPress={() =>
+            this.props.navigation.navigate('Filter', {
+              keyword: this.state.keyword,
+              location_id: this.state.location_id,
+              category_id: this.state.category_id,
+            })
+          }>
           <IoniconsIcon name="filter-outline" size={20} color="#393939" />
           <Text style={Style.filterText}>Filter</Text>
         </TouchableOpacity>
@@ -49,7 +87,7 @@ export class Search extends Component {
           renderItem={({item}) => (
             <TouchableOpacity
               onPress={() =>
-                this.props.navigation.navigate('Order', {
+                this.props.navigation.navigate('Details', {
                   id: item.id,
                 })
               }>
@@ -63,7 +101,12 @@ export class Search extends Component {
                 />
                 <View>
                   <Text style={Style.itemName}>{item.name}</Text>
-                  {/* <Text style={Style.itemDescription}>{item.description}</Text> */}
+                  <Text
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                    style={Style.itemDescription}>
+                    {item.description}
+                  </Text>
                   <Text style={Style.itemPrice}>
                     Prepayment: Rp{item.price}
                   </Text>

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import signupBackground from '../../assets/images/signup.jpg';
 import Style from './Style';
-import {postRegister} from '../../utils/https/auth';
+// import {postRegister} from '../../utils/https/auth';
 import {registerAction} from '../../redux/actionCreators/auth';
 import {connect} from 'react-redux';
 export class Signup extends Component {
@@ -17,6 +17,7 @@ export class Signup extends Component {
     email: '',
     phone: '',
     password: '',
+    error: '',
   };
   submitRegister = () => {
     if (this.state.email === '') {
@@ -42,6 +43,20 @@ export class Signup extends Component {
     console.log(queries);
     this.props.onSignup(queries);
   };
+  componentDidUpdate() {
+    if (this.props.auth.isRejected) {
+      if (String(this.props.auth.error.message).includes('409')) {
+        this.setError('Email or phone already taken.');
+      }
+    }
+    if (this.props.auth.isFulfilled) {
+      ToastAndroid.show('Account created successfully', ToastAndroid.SHORT);
+      this.props.navigation.replace('Login');
+    }
+  }
+  setError = msg => {
+    this.setState({error: msg});
+  };
   render() {
     return (
       <View style={Style.container}>
@@ -59,16 +74,26 @@ export class Signup extends Component {
             />
             <TextInput
               style={Style.textInput}
+              placeholderTextColor="black"
               placeholder="Mobile Phone"
               keyboardType="number-pad"
+              maxLength={12}
               onChangeText={text => this.setState({phone: text})}
             />
             <TextInput
               secureTextEntry={true}
               style={Style.textInput}
+              placeholderTextColor="black"
               placeholder="Password"
               onChangeText={text => this.setState({password: text})}
             />
+            {this.state.error ? (
+              <View style={Style.wrapperError}>
+                <Text style={Style.textError}>{this.state.error}</Text>
+              </View>
+            ) : (
+              <View />
+            )}
             <TouchableOpacity
               style={Style.signupButton}
               onPress={() => this.submitRegister()}>

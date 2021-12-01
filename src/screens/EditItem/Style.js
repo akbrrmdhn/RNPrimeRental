@@ -40,7 +40,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   button: {
-    marginTop: -20,
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -48,7 +48,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFCD61',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '35%',
+    height: 50,
     width: '80%',
     borderRadius: 10,
   },
@@ -97,10 +97,15 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  stockNum: {
+    fontFamily: 'Nunito-Black',
+    fontSize: 18,
+  },
   counter: {
     flexDirection: 'row',
     width: 150,
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   counterButton: {
     backgroundColor: '#FFCD61',
@@ -108,6 +113,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     width: 30,
     height: 30,
+    marginHorizontal: 10,
     borderRadius: 10,
   },
   sectionHeading: {

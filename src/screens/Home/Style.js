@@ -25,7 +25,7 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   finderRow: {
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     marginBottom: 20,
     height: 50,
     flexDirection: 'row',
@@ -46,10 +46,13 @@ export default StyleSheet.create({
     marginTop: 20,
     backgroundColor: 'rgba(250, 250, 250, 0.4)',
     height: '100%',
-    width: '40%',
+    width: '45%',
     fontFamily: 'Nunito-Regular',
     borderColor: 'black',
     borderWidth: 1,
+  },
+  buttonArea: {
+    marginBottom: 70,
   },
   findButton: {
     backgroundColor: '#FFCD61',
@@ -96,14 +99,19 @@ export default StyleSheet.create({
   },
   datePicker: {
     marginTop: 20,
-    width: '50%',
+    width: '45%',
     height: '100%',
     fontSize: 16,
     borderRadius: 10,
     backgroundColor: 'rgba(240, 240, 240, 0.4)',
     marginVertical: 10,
     justifyContent: 'center',
-    alignItems: 'center',
+    paddingLeft: 20,
+    borderColor: 'black',
+    borderWidth: 1,
+  },
+  dateText: {
+    fontSize: 18,
   },
   addView: {
     height: 100,

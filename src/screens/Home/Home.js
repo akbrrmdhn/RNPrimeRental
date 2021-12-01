@@ -4,7 +4,6 @@ import {
   View,
   ScrollView,
   ImageBackground,
-  TextInput,
   TouchableOpacity,
   FlatList,
   Image,
@@ -41,18 +40,18 @@ class Home extends Component {
   componentDidMount() {
     const url = config.API_URL;
     axios
-      .get(`${url}/vehicles/score`, {
-        params: {limit: 4},
+      .get(`${url}/vehicles/`, {
+        params: {limit: 4, order_by: 'v.score', sort: 'DESC'},
       })
       .then(({data}) => {
-        this.setState({score: data.result});
+        this.setState({score: data.result.data});
       })
       .catch(err => {
         console.log(err);
       });
     axios
       .get(`${url}/vehicles/`, {
-        params: {category_id: 1, order_by: 'v.score', sort: 'DESC'},
+        params: {category_id: 1, order_by: 'v.id', sort: 'DESC'},
       })
       .then(({data}) => {
         this.setState({cars: data.result.data});
@@ -62,7 +61,7 @@ class Home extends Component {
       });
     axios
       .get(`${url}/vehicles/`, {
-        params: {category_id: 2, order_by: 'v.score', sort: 'DESC'},
+        params: {category_id: 2, order_by: 'v.id', sort: 'DESC'},
       })
       .then(({data}) => {
         this.setState({motorbikes: data.result.data});
@@ -72,7 +71,7 @@ class Home extends Component {
       });
     axios
       .get(`${url}/vehicles/`, {
-        params: {category_id: 3, order_by: 'v.score', sort: 'DESC'},
+        params: {category_id: 3, order_by: 'v.id', sort: 'DESC'},
       })
       .then(({data}) => {
         this.setState({bikes: data.result.data});
@@ -104,6 +103,7 @@ class Home extends Component {
               <Picker
                 selectedValue={this.state.location}
                 onValueChange={this.setLocation}>
+                <Picker.Item label="Location" value="" />
                 <Picker.Item label="Jakarta" value="1" />
                 <Picker.Item label="Yogyakarta" value="2" />
                 <Picker.Item label="Malang" value="3" />
@@ -114,6 +114,7 @@ class Home extends Component {
               <Picker
                 selectedValue={this.state.vehicleType}
                 onValueChange={this.setVehicleType}>
+                <Picker.Item label="Vehicle type" value="" />
                 <Picker.Item label="Car" value="1" />
                 <Picker.Item label="Motorbike" value="2" />
                 <Picker.Item label="Bike" value="3" />
@@ -125,7 +126,7 @@ class Home extends Component {
               style={Style.findButton}
               onPress={() =>
                 this.props.navigation.navigate('Search', {
-                  vehicle_category: this.state.vehicleType,
+                  category_id: this.state.vehicleType,
                   location_id: this.state.location,
                 })
               }>
@@ -151,7 +152,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('EditItem', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>
@@ -175,7 +176,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('EditItem', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>
@@ -199,7 +200,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('EditItem', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>
@@ -223,7 +224,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('EditItem', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>
@@ -243,11 +244,22 @@ class Home extends Component {
       finder = (
         <View style={Style.vehicleFinder}>
           <View style={Style.finderRow}>
-            <TextInput style={Style.textInput} placeholder="Select location" />
+            <View style={Style.pickerView}>
+              <Picker
+                selectedValue={this.state.location}
+                onValueChange={this.setLocation}>
+                <Picker.Item label="Location" value="" />
+                <Picker.Item label="Jakarta" value="1" />
+                <Picker.Item label="Yogyakarta" value="2" />
+                <Picker.Item label="Malang" value="3" />
+                <Picker.Item label="Banjarmasin" value="4" />
+              </Picker>
+            </View>
             <View style={Style.pickerView}>
               <Picker
                 selectedValue={this.state.vehicleType}
                 onValueChange={this.setVehicleType}>
+                <Picker.Item label="Vehicle type" value="" />
                 <Picker.Item label="Car" value="1" />
                 <Picker.Item label="Motorbike" value="2" />
                 <Picker.Item label="Bike" value="3" />
@@ -258,7 +270,7 @@ class Home extends Component {
             <TouchableOpacity
               onPress={() => this.setOpen(true)}
               style={Style.datePicker}>
-              <Text>Date</Text>
+              <Text style={Style.dateText}>Date</Text>
             </TouchableOpacity>
             <DatePicker
               modal
@@ -278,12 +290,13 @@ class Home extends Component {
               </Picker>
             </View>
           </View>
-          <View>
+          <View style={Style.buttonArea}>
             <TouchableOpacity
               style={Style.findButton}
               onPress={() =>
                 this.props.navigation.navigate('Search', {
-                  vehicle_category: this.state.vehicleType,
+                  category_id: this.state.vehicleType,
+                  location_id: this.state.location,
                 })
               }>
               <Text style={Style.buttonText}>Search Vehicle</Text>
@@ -300,7 +313,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Order', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>
@@ -324,7 +337,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Order', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>
@@ -348,7 +361,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Order', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>
@@ -372,7 +385,7 @@ class Home extends Component {
             <View>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Order', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   });
                 }}>

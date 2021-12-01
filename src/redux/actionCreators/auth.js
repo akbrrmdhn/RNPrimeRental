@@ -22,16 +22,16 @@ export const registerAction = body => {
   };
 };
 
-export const updateProfileAction = (body, id) => {
+export const updateProfileAction = (body, token) => {
   return {
     type: updateProfile,
-    payload: postUpdateProfile(body, id),
+    payload: postUpdateProfile(body, token),
   };
 };
 
-export const logoutAction = () => {
+export const logoutAction = token => {
   return {
     type: signOut,
-    payload: deleteLogout(),
+    payload: deleteLogout(token),
   };
 };

@@ -17,6 +17,7 @@ class ViewMore extends Component {
     loading: false,
     vehicles: [{}],
     page: 1,
+    nextPage: '',
   };
   componentDidMount() {
     const {name} = this.props.route.params;
@@ -35,6 +36,7 @@ class ViewMore extends Component {
           this.setState({
             vehicles: data.result.data,
             loading: false,
+            nextPage: data.result.nextPage,
           });
           console.log(this.state.page);
         })
@@ -57,6 +59,7 @@ class ViewMore extends Component {
           this.setState({
             vehicles: data.result.data,
             loading: false,
+            nextPage: data.result.nextPage,
           });
         })
         .catch(err => {
@@ -76,6 +79,7 @@ class ViewMore extends Component {
           this.setState({
             vehicles: data.result.data,
             loading: false,
+            nextPage: data.result.nextPage,
           });
           console.log(this.state.page);
         })
@@ -84,11 +88,14 @@ class ViewMore extends Component {
         });
     } else if (name === 'Recommended') {
       axios
-        .get(`${url}/vehicles/score`, {
+        .get(`${url}/vehicles?page=${this.state.page}`, {
           params: {page: 1, limit: 10},
         })
         .then(({data}) => {
-          this.setState({vehicles: data.result});
+          this.setState({
+            vehicles: data.result.data,
+            nextPage: data.result.nextPage,
+          });
         })
         .catch(err => {
           console.log(err);
@@ -111,6 +118,7 @@ class ViewMore extends Component {
           this.setState({
             vehicles: [...this.state.vehicles, ...data.result.data],
             loading: false,
+            nextPage: data.result.nextPage,
           });
           console.log(this.state.page);
         })
@@ -133,6 +141,7 @@ class ViewMore extends Component {
           this.setState({
             vehicles: [...this.state.vehicles, ...data.result.data],
             loading: false,
+            nextPage: data.result.nextPage,
           });
         })
         .catch(err => {
@@ -152,6 +161,7 @@ class ViewMore extends Component {
           this.setState({
             vehicles: [...this.state.vehicles, ...data.result.data],
             loading: false,
+            nextPage: data.result.nextPage,
           });
           console.log(this.state.page);
         })
@@ -160,11 +170,14 @@ class ViewMore extends Component {
         });
     } else if (name === 'Recommended') {
       axios
-        .get(`${url}/vehicles/score`, {
-          params: {page: 1, limit: 10},
+        .get(`${url}/vehicles?page=${this.state.page}`, {
+          params: {limit: 10, order_by: 'v.score', sort: 'DESC'},
         })
         .then(({data}) => {
-          this.setState({vehicles: data.result});
+          this.setState({
+            vehicles: [...this.state.vehicles, ...data.result.data],
+            nextPage: data.result.nextPage,
+          });
         })
         .catch(err => {
           console.log(err);
@@ -193,17 +206,17 @@ class ViewMore extends Component {
       <View style={Style.container}>
         <FlatList
           data={this.state.vehicles}
-          keyExtractor={item => item.id}
+          keyExtractor={(_, index) => index}
           ListFooterComponent={this.renderLoader}
-          onEndReached={
-            (console.log(this.state.vehicles), () => this.loadMoreItems())
+          onEndReached={() =>
+            this.state.nextPage !== null && this.loadMoreItems()
           }
           onEndReachedThreshold={0.01}
           renderItem={({item}) => (
             <View>
               <TouchableOpacity
                 onPress={() =>
-                  this.props.navigation.navigate('Order', {
+                  this.props.navigation.navigate('Details', {
                     id: item.id,
                   })
                 }>

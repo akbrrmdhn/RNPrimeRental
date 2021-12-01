@@ -4,13 +4,15 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
+    height: '100%',
   },
   content: {
     margin: 10,
+    paddingBottom: 300,
   },
   image: {
     width: '100%',
-    height: '30%',
+    height: '20%',
   },
   itemHeading: {
     flexDirection: 'row',
@@ -26,10 +28,23 @@ export default StyleSheet.create({
   itemMiscText: {
     fontFamily: 'Nunito-Regular',
     fontSize: 16,
-    marginVertical: 2,
+    marginVertical: 5,
+  },
+  availableText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 16,
+    marginVertical: 10,
+    color: 'green',
+  },
+  fullBookedText: {
+    fontFamily: 'Nunito-Regular',
+    fontSize: 16,
+    marginVertical: 10,
+    color: 'red',
   },
   locationDistance: {
     flexDirection: 'row',
+    alignItems: 'center',
   },
   locationDistanceText: {
     fontFamily: 'Nunito-Regular',
@@ -53,7 +68,7 @@ export default StyleSheet.create({
     borderRadius: 10,
   },
   date: {
-    marginTop: 30,
+    marginTop: 10,
     height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -71,8 +86,8 @@ export default StyleSheet.create({
   pickerView: {
     borderRadius: 10,
     backgroundColor: 'rgba(240, 240, 240, 1)',
-    width: '40%',
-    height: '100%',
+    width: '50%',
+    height: '80%',
     fontFamily: 'Nunito-Regular',
   },
   reserveText: {
@@ -101,5 +116,13 @@ export default StyleSheet.create({
   sectionHeading: {
     fontFamily: 'Nunito-Black',
     fontSize: 17,
+  },
+  statusPickerView: {
+    borderRadius: 10,
+    backgroundColor: 'rgba(240, 240, 240, 1)',
+    width: '100%',
+    height: '10%',
+    fontFamily: 'Nunito-Regular',
+    marginVertical: 10,
   },
 });
