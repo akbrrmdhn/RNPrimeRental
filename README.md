@@ -50,7 +50,8 @@ You'll need to run the app on an Android device, be it emulator or a physical de
 
 ### **RELATED PROJECT(S)**
 
-- [Prime Rental API](https://github.com/sulthanqintara/Zwallet-b-23-client)
+- [Prime Rental API](https://github.com/akbrrmdhn/primerental-api)
+- [Prime Rental Web](https://github.com/akbrrmdhn/primerental-react)
 
 <br>
 ```
