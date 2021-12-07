@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import config from '../../../config';
+import {API_URL} from '@env';
 import Style from './Style';
 import car from '../../assets/images/car.jpg';
 
@@ -21,10 +21,9 @@ class ViewMore extends Component {
   };
   componentDidMount() {
     const {name} = this.props.route.params;
-    const url = config.API_URL;
     if (name === 'Cars') {
       axios
-        .get(`${url}/vehicles?page=${this.state.page}`, {
+        .get(`${API_URL}/vehicles?page=${this.state.page}`, {
           params: {
             category_id: 1,
             order_by: 'v.score',
@@ -45,7 +44,7 @@ class ViewMore extends Component {
         });
     } else if (name === 'Motorbikes') {
       axios
-        .get(`${url}/vehicles?page=${this.state.page}`, {
+        .get(`${API_URL}/vehicles?page=${this.state.page}`, {
           params: {
             category_id: 2,
             order_by: 'v.score',
@@ -67,7 +66,7 @@ class ViewMore extends Component {
         });
     } else if (name === 'Bikes') {
       axios
-        .get(`${url}/vehicles?page=${this.state.page}`, {
+        .get(`${API_URL}/vehicles?page=${this.state.page}`, {
           params: {
             category_id: 3,
             order_by: 'v.score',
@@ -88,7 +87,7 @@ class ViewMore extends Component {
         });
     } else if (name === 'Recommended') {
       axios
-        .get(`${url}/vehicles?page=${this.state.page}`, {
+        .get(`${API_URL}/vehicles?page=${this.state.page}`, {
           params: {page: 1, limit: 10},
         })
         .then(({data}) => {
@@ -193,15 +192,13 @@ class ViewMore extends Component {
   };
   loadMoreItems = () => {
     const {name} = this.props.route.params;
-    const url = config.API_URL;
     console.log('does this load?');
     this.setState(
       state => ({page: state.page + 1}),
-      () => this.fetchData(name, url),
+      () => this.fetchData(name, API_URL),
     );
   };
   render() {
-    const url = config.API_URL;
     return (
       <View style={Style.container}>
         <FlatList
@@ -223,7 +220,9 @@ class ViewMore extends Component {
                 <View style={Style.detailsCard}>
                   <Image
                     source={
-                      `${url}${item.image}` ? {uri: `${url}${item.image}`} : car
+                      `${API_URL}${item.image}`
+                        ? {uri: `${API_URL}${item.image}`}
+                        : car
                     }
                     resizeMode="cover"
                     style={Style.cardImage}

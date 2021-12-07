@@ -16,8 +16,8 @@ import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
+import {API_URL} from '@env';
 import car from '../../assets/images/car.jpg';
-import config from '../../../config';
 import {connect} from 'react-redux';
 import {format, addDays} from 'date-fns';
 
@@ -48,9 +48,8 @@ export class Details extends Component {
   };
   componentDidMount() {
     const {id} = this.props.route.params;
-    const url = config.API_URL;
     axios
-      .get(`${url}/vehicles/${id}`, {
+      .get(`${API_URL}/vehicles/${id}`, {
         params: {id: String(id)},
       })
       .then(({data}) => {
@@ -63,7 +62,7 @@ export class Details extends Component {
           maxStock: vehicleData.stock,
           description: vehicleData.description,
           location: vehicleData.location,
-          image: `${url}${vehicleData.image}`,
+          image: `${API_URL}${vehicleData.image}`,
           price: vehicleData.price,
           status_id: vehicleData.status_id,
           book_status: vehicleData.book_status,
@@ -133,7 +132,6 @@ export class Details extends Component {
       return ToastAndroid.show('Stock must not be empty!', ToastAndroid.SHORT);
     }
     const queries = new FormData();
-    const url = config.API_URL;
     const id = this.state.id;
     const token = this.props.auth.token;
     queries.append('name', this.state.name);
@@ -144,7 +142,7 @@ export class Details extends Component {
     queries.append('booking_status_id', this.state.status_id);
     queries.append('owner_id', this.props.auth.authInfo.user_id);
     axios
-      .patch(`${url}/vehicles/${id}`, queries, {
+      .patch(`${API_URL}/vehicles/${id}`, queries, {
         headers: {
           'x-access-token': `Bearer ${token},`,
         },

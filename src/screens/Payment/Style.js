@@ -17,6 +17,13 @@ export default StyleSheet.create({
   content: {
     justifyContent: 'center',
     paddingBottom: 10,
+    marginHorizontal: 10,
+  },
+  successContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10,
+    marginHorizontal: 10,
   },
   textInput: {
     width: '100%',
@@ -132,9 +139,24 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   orderDetailsText: {
-    fontFamily: 'Nunit0-Regular',
+    fontFamily: 'Nunito-Regular',
     fontSize: 16,
     color: '#616167',
     marginVertical: 5,
+  },
+  paymentStatus: {
+    fontFamily: 'Nunito-Black',
+    fontSize: 24,
+    marginVertical: 20,
+    color: '#228C22',
+    textAlign: 'center',
+  },
+  paymentStatusSucceed: {
+    paddingTop: 100,
+    fontFamily: 'Nunito-Black',
+    fontSize: 24,
+    marginVertical: 20,
+    color: '#228C22',
+    textAlign: 'center',
   },
 });

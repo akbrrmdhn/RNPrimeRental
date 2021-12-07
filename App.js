@@ -14,6 +14,7 @@ import Details from './src/screens/Details/Details';
 import Payment from './src/screens/Payment/Payment';
 import Payment2 from './src/screens/Payment/Payment2';
 import Payment3 from './src/screens/Payment/Payment3';
+import PaymentSucceed from './src/screens/Payment/PaymentSucceed';
 import ViewMore from './src/screens/ViewMore/ViewMore';
 import Search from './src/screens/Search/Search';
 import SplashScreen from './src/screens/SplashScreen/SplashScreen';
@@ -26,7 +27,6 @@ import UpdatePassword from './src/screens/UpdatePassword/UpdatePassword';
 import ForgotPassword from './src/screens/ForgotPass/ForgotPassword/ForgotPassword';
 import ChangePassword from './src/screens/ForgotPass/ChangePassword/ChangePassword';
 import CheckCode from './src/screens/ForgotPass/CheckCode/CheckCode';
-import {black} from 'react-native-paper/lib/typescript/styles/colors';
 
 const redux = reduxStore();
 
@@ -126,6 +126,16 @@ const App = () => {
                 }}
                 name="Payment3">
                 {props => <Payment3 {...props} />}
+              </StackScreen>
+              <StackScreen
+                options={{
+                  headerShown: true,
+                  title: 'See History',
+                  headerTintColor: '#393939',
+                  headerTransparent: true,
+                }}
+                name="PaymentSucceed">
+                {props => <PaymentSucceed {...props} />}
               </StackScreen>
               <StackScreen
                 options={({route}) => ({

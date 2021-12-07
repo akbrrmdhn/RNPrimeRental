@@ -8,7 +8,7 @@ import {
   ScrollView,
   ToastAndroid,
 } from 'react-native';
-import config from '../../../config';
+import {API_URL} from '@env';
 import axios from 'axios';
 import Style from './Style';
 import car from '../../assets/images/car.jpg';
@@ -39,9 +39,8 @@ class EditItem extends Component {
   };
   componentDidMount() {
     const {id} = this.props.route.params;
-    const url = config.API_URL;
     axios
-      .get(`${url}/vehicles/${id}`, {
+      .get(`${API_URL}/vehicles/${id}`, {
         params: {id: String(id)},
       })
       .then(({data}) => {
@@ -54,7 +53,7 @@ class EditItem extends Component {
           maxStock: vehicleData.stock,
           description: vehicleData.description,
           location: vehicleData.location,
-          image: `${url}${vehicleData.image}`,
+          image: `${API_URL}${vehicleData.image}`,
           price: vehicleData.price,
           owner_id: vehicleData.owner_id,
         });
@@ -87,14 +86,13 @@ class EditItem extends Component {
     }
 
     const queries = new FormData();
-    const url = config.API_URL;
     const id = this.state.id;
     queries.append('name', this.state.name);
     queries.append('price', this.state.price);
     queries.append('description', this.state.description);
     queries.append('stock', this.state.stock);
     queries.append('owner_id', this.props.auth.authInfo.user_id);
-    axios.patch(`${url}/vehicles/${id}`, queries);
+    axios.patch(`${API_URL}/vehicles/${id}`, queries);
     ToastAndroid.show('Item modified successfully', ToastAndroid.SHORT);
     this.props.navigation.pop();
   };

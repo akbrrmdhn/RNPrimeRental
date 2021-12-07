@@ -10,13 +10,12 @@ import {View, Text, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from 'react-redux';
 import person from '../assets/images/person.jpg';
-import config from '../../config';
 import Style from './BottomTabsStyle';
+import {API_URL} from '@env';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = props => {
-  const url = config.API_URL;
   return (
     <Tab.Navigator
       screenOptions={{headerShown: false, tabBarShowLabel: false}}
@@ -83,8 +82,8 @@ const BottomTabs = props => {
             <View style={Style.container}>
               <Image
                 source={
-                  `${url}${props.auth.authInfo.image}`
-                    ? {uri: `${url}${props.auth.authInfo.image}`}
+                  `${API_URL}${props.auth.authInfo.image}`
+                    ? {uri: `${API_URL}${props.auth.authInfo.image}`}
                     : person
                 }
                 resizeMode="cover"

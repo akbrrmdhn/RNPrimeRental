@@ -14,7 +14,7 @@ import {Picker} from '@react-native-picker/picker';
 import DatePicker from 'react-native-date-picker';
 import vespa from '../../assets/images/vespa.jpg';
 import axios from 'axios';
-import config from '../../../config';
+import {API_URL} from '@env';
 import {connect} from 'react-redux';
 
 class Home extends Component {
@@ -38,9 +38,8 @@ class Home extends Component {
     },
   ];
   componentDidMount() {
-    const url = config.API_URL;
     axios
-      .get(`${url}/vehicles/`, {
+      .get(`${API_URL}/vehicles/`, {
         params: {limit: 4, order_by: 'v.score', sort: 'DESC'},
       })
       .then(({data}) => {
@@ -50,7 +49,7 @@ class Home extends Component {
         console.log(err);
       });
     axios
-      .get(`${url}/vehicles/`, {
+      .get(`${API_URL}/vehicles/`, {
         params: {category_id: 1, order_by: 'v.id', sort: 'DESC'},
       })
       .then(({data}) => {
@@ -60,7 +59,7 @@ class Home extends Component {
         console.log(err);
       });
     axios
-      .get(`${url}/vehicles/`, {
+      .get(`${API_URL}/vehicles/`, {
         params: {category_id: 2, order_by: 'v.id', sort: 'DESC'},
       })
       .then(({data}) => {
@@ -70,7 +69,7 @@ class Home extends Component {
         console.log(err);
       });
     axios
-      .get(`${url}/vehicles/`, {
+      .get(`${API_URL}/vehicles/`, {
         params: {category_id: 3, order_by: 'v.id', sort: 'DESC'},
       })
       .then(({data}) => {
@@ -90,7 +89,6 @@ class Home extends Component {
     this.setState({location: location});
   };
   render() {
-    const url = config.API_URL;
     let finder, addButton, popularCard, carsCard, motorbikesCard, bikesCard;
     if (
       this.props.auth.authInfo.roleLevel === 1 ||
@@ -158,7 +156,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}
@@ -182,7 +180,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}
@@ -206,7 +204,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}
@@ -230,7 +228,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}
@@ -319,7 +317,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}
@@ -343,7 +341,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}
@@ -367,7 +365,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}
@@ -391,7 +389,7 @@ class Home extends Component {
                 }}>
                 <Image
                   source={{
-                    uri: `${url}${item.image}`,
+                    uri: `${API_URL}${item.image}`,
                   }}
                   resizeMode="cover"
                   style={Style.cardImage}

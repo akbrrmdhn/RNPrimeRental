@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Style from './Style';
 import Axios from 'axios';
-import config from '../../../config';
+import {API_URL} from '@env';
 import {connect} from 'react-redux';
 
 class UpdatePassword extends Component {
@@ -20,12 +20,11 @@ class UpdatePassword extends Component {
   };
 
   updateHandler = () => {
-    const url = config.API_URL;
     const id = this.props.auth.authInfo.user_id;
     const queries = new URLSearchParams();
     queries.append('oldPass', this.state.oldPass);
     queries.append('newPass', this.state.newPass);
-    Axios.patch(`${url}/users/password/${id}`, queries);
+    Axios.patch(`${API_URL}/users/password/${id}`, queries);
   };
   componentDidUpdate() {
     if (this.props.auth.isFulfilled) {

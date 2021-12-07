@@ -8,11 +8,11 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import config from '../../../config';
 import Style from './Style';
 import car from '../../assets/images/car.jpg';
 import {getFavourites} from '../../utils/https/vehicles';
 import {connect} from 'react-redux';
+import {API_URL} from '@env';
 class Favourites extends Component {
   state = {
     loading: false,
@@ -118,15 +118,13 @@ class Favourites extends Component {
   // };
   // loadMoreItems = () => {
   //   const {name} = this.props.route.params;
-  //   const url = config.API_URL;
   //   console.log('does this load?');
   //   this.setState(
   //     state => ({page: state.page + 1}),
-  //     () => this.fetchData(name, url),
+  //     () => this.fetchData(name, API_URL),
   //   );
   // };
   render() {
-    const url = config.API_URL;
     return (
       <View style={Style.container}>
         {this.state.error.includes('404') ? (
@@ -158,8 +156,8 @@ class Favourites extends Component {
                   <View style={Style.detailsCard}>
                     <Image
                       source={
-                        `${url}${item.image}`
-                          ? {uri: `${url}${item.image}`}
+                        `${API_URL}${item.image}`
+                          ? {uri: `${API_URL}${item.image}`}
                           : car
                       }
                       resizeMode="cover"

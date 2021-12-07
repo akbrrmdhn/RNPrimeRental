@@ -41,6 +41,7 @@ export class Payment extends Component {
   reserveVehicle = () => {
     const {id, quantity, rent_date, return_date, total_price, user_id} =
       this.props.route.params;
+    const idNumber = this.state.identity_number;
     const body = {
       user_id,
       vehicle_id: id,
@@ -49,19 +50,27 @@ export class Payment extends Component {
       return_date,
       total_price,
       status_id: 1,
+      // identity_number: idNumber,
     };
+    // const body = new URLSearchParams();
+    // body.append('user_id', user_id);
+    // body.append('vehicle_id', id);
+    // body.append('quantity', quantity);
+    // body.append('rent_date', rent_date);
+    // body.append('return_date', return_date);
+    // body.append('total_price', total_price);
+    // body.append('card_id', idNumber);
+    console.log(idNumber);
     axios
       .post(`${API_URL}/histories/`, body)
       .then(result =>
-        this.props.navigation.navigate('Payment2', {
-          user_id,
-          vehicle_id: id,
-          name: this.state.name,
-          identity_number: this.state.identity_number,
-          phone: this.state.phone,
-          email: this.state.email,
-          address: this.state.address,
-        }),
+        setTimeout(
+          () =>
+            this.props.navigation.navigate('Payment2', {
+              history_id: result.data.result,
+            }),
+          3000,
+        ),
       )
       .catch(error => console.log(error));
   };
@@ -71,12 +80,13 @@ export class Payment extends Component {
         <ScrollView style={Style.scrollView}>
           <View style={Style.content}>
             <View style={Style.progress}>
-              <Text>number 1-2-3 placeholder</Text>
+              <Text style={Style.paymentStatus}> Step 1 </Text>
             </View>
             <TextInput
               placeholder="ID Card Number"
               onChangeText={text => this.setState({identity_number: text})}
               style={Style.textInput}
+              maxLength={9}
             />
             <TextInput
               placeholder="Name"

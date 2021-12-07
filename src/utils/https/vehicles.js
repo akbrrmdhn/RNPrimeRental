@@ -1,10 +1,8 @@
 import axios from 'axios';
-import config from '../../../config';
-
-const url = config.API_URL;
+import {API_URL} from '@env';
 
 export const getFavourites = user_id => {
-  return axios.get(`${url}/vehicles/like`, {
+  return axios.get(`${API_URL}/vehicles/like`, {
     params: {
       user_id,
     },
@@ -12,7 +10,7 @@ export const getFavourites = user_id => {
 };
 
 export const likeVehicle = queries => {
-  return axios.post(`${url}/vehicles/like`, {
+  return axios.post(`${API_URL}/vehicles/like`, {
     params: {
       queries,
     },
@@ -20,7 +18,7 @@ export const likeVehicle = queries => {
 };
 
 export const unlikeVehicle = queries => {
-  return axios.delete(`${url}/vehicles/like`, {
+  return axios.delete(`${API_URL}/vehicles/like`, {
     params: {
       queries,
     },

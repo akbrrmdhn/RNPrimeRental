@@ -13,8 +13,8 @@ import {Picker} from '@react-native-picker/picker';
 import camera from '../../assets/images/camera.png';
 import {launchImageLibrary} from 'react-native-image-picker';
 import axios from 'axios';
-import config from '../../../config';
 import {connect} from 'react-redux';
+import {API_URL} from '@env';
 
 class AddItem extends Component {
   state = {
@@ -56,7 +56,6 @@ class AddItem extends Component {
     }
 
     const queries = new FormData();
-    const url = config.API_URL;
     const token = this.props.auth.token;
     queries.append('name', this.state.name);
     queries.append('price', this.state.price);
@@ -65,7 +64,7 @@ class AddItem extends Component {
     queries.append('category_id', this.state.category_id);
     queries.append('stock', this.state.stock);
     queries.append('owner_id', this.props.auth.authInfo.user_id);
-    axios.post(`${url}/vehicles/`, queries, {
+    axios.post(`${API_URL}/vehicles/`, queries, {
       headers: {'x-access-token': `Bearer ${token}`},
       'Content type': 'multipart/form-data',
     });

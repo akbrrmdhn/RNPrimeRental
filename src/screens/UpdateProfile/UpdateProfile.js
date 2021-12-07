@@ -16,7 +16,7 @@ import {Radio} from 'native-base';
 import DatePicker from 'react-native-date-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {connect} from 'react-redux';
-import config from '../../../config';
+import {API_URL} from '@env';
 import {updateProfileAction} from '../../redux/actionCreators/auth';
 import {getUser} from '../../utils/https/users';
 import {format} from 'date-fns';
@@ -115,7 +115,7 @@ class UpdateProfile extends Component {
     queries.append('address', this.state.address);
     console.log('token: ', this.props.auth.token);
     console.log('query: ', queries);
-    // this.props.onUpdate(queries, this.props.auth.token);
+    this.props.onUpdate(queries, this.props.auth.token);
   };
   componentDidUpdate() {
     if (this.props.auth.isFulfilled === true) {
@@ -127,16 +127,15 @@ class UpdateProfile extends Component {
     }
   }
   render() {
-    const url = config.API_URL;
     return (
       <View style={Style.container}>
         <ScrollView style={Style.scrollView}>
           <View style={Style.profileImageSet}>
             <Image
               source={
-                `${url}${this.state.image}`
+                `${API_URL}${this.state.image}`
                   ? {
-                      uri: `${url}${this.state.image}`,
+                      uri: `${API_URL}${this.state.image}`,
                     }
                   : profileAvatar
               }

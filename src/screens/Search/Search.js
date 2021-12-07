@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import axios from 'axios';
-import config from '../../../config';
+import {API_URL} from '@env';
 import Style from './Style';
 import car from '../../assets/images/car.jpg';
 import IoniconsIcon from '../../../node_modules/react-native-vector-icons/Ionicons';
@@ -20,7 +20,6 @@ export class Search extends Component {
   };
 
   searchVehicle = (query, location, category) => {
-    const url = config.API_URL;
     let search = query && {keyword: query};
     if (location) {
       search = {...search, ...{location_id: location}};
@@ -31,7 +30,7 @@ export class Search extends Component {
     console.log('search query is ', search);
 
     return axios
-      .get(`${url}/vehicles/`, {
+      .get(`${API_URL}/vehicles/`, {
         params: search,
       })
       .then(({data}) => {
@@ -55,7 +54,6 @@ export class Search extends Component {
     this._unsubscribe();
   }
   render() {
-    const url = config.API_URL;
     return (
       <View style={Style.container}>
         <TextInput
@@ -94,7 +92,9 @@ export class Search extends Component {
               <View style={Style.detailsCard}>
                 <Image
                   source={
-                    `${url}${item.image}` ? {uri: `${url}${item.image}`} : car
+                    `${API_URL}${item.image}`
+                      ? {uri: `${API_URL}${item.image}`}
+                      : car
                   }
                   resizeMode="cover"
                   style={Style.cardImage}
